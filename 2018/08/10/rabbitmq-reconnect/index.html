@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>rabbitmq客户端自动重连 | Owen&#39;s Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#x33;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项">
+<meta name="keywords" content="rabbitmq,node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rabbitmq客户端自动重连">
+<meta property="og:url" content="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/index.html">
+<meta property="og:site_name" content="Owen&#39;s Blogs">
+<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#x33;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-21T12:38:29.644Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rabbitmq客户端自动重连">
+<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#x33;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项">
+  
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Owen&#39;s Blogs</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天空没有留下鸟的痕迹，但我已飞过</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://owenlittlewhite.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-rabbitmq-reconnect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/10/rabbitmq-reconnect/" class="article-date">
+  <time datetime="2018-08-10T07:30:01.000Z" itemprop="datePublished">2018-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      rabbitmq客户端自动重连
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#x35;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#x33;&#64;&#113;&#113;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#x32;&#x35;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#x33;&#64;&#113;&#113;&#x2e;&#99;&#111;&#x6d;</a></p>
+<h2 id="RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连"><a href="#RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连" class="headerlink" title="RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连"></a><code>RabbitMQ</code> Node.js 客户端(<a href="https://www.npmjs.com/package/amqplib" target="_blank" rel="noopener">AMQP 0-9-1  V0.5.2</a>)自动重连</h2><h3 id="重启策略"><a href="#重启策略" class="headerlink" title="重启策略"></a>重启策略</h3><p>开始找解决方案：</p>
+<ol>
+<li><p>通过查看AMQP的源码，发现没有reconnect的选项</p>
+</li>
+<li><p>然后上GitHub上看有没有人提出类似的问题 <a href="https://github.com/squaremo/amqp.node" target="_blank" rel="noopener">github repo</a>，通过输入<code>reconnect</code>搜索issue区找到题为 <em>Support Auto-reconnection</em> 的<a href="https://github.com/squaremo/amqp.node/issues/25" target="_blank" rel="noopener">issue</a>，发现这个问题是早在 <strong>2013</strong> 年就提出来的，可是现在还是 <strong>open</strong><br>的状态！</p>
+</li>
+<li><p>在这个Issue区发现有一个解决方案还是可以实践一下的：</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">connectRMQ</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  amqp.connect(config.rabbitmq.URI).then(<span class="function"><span class="keyword">function</span>(<span class="params">conn</span>) </span>&#123;</span><br><span class="line">    conn.on(<span class="string">'close'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.error(<span class="string">'Lost connection to RMQ.  Reconnecting in 60 seconds...'</span>);</span><br><span class="line">      <span class="keyword">return</span> setTimeout(connectRMQ, <span class="number">60</span> * <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> conn.createChannel().then(<span class="function"><span class="keyword">function</span>(<span class="params">ch</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> ok = ch.assertQueue(config.rabbitmq.queue, &#123;<span class="attr">durable</span>: <span class="literal">true</span>&#125;);</span><br><span class="line">        ok = ok.then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            ch.prefetch(<span class="number">1</span>);</span><br><span class="line">            ch.consume(config.rabbitmq.queue, doWork, &#123;<span class="attr">noAck</span>: <span class="literal">false</span>&#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> ok.then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">" [*] Waiting in %s."</span>, config.rabbitmq.queue);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">doWork</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> body = msg.content.toString();</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">" [x] Received %s"</span>, body);</span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                ch.ack(msg);</span><br><span class="line">            &#125;, config.rabbitmq.timeout);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;).then(<span class="literal">null</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     setTimeout(connectRMQ, <span class="number">10</span> * <span class="number">1000</span>);</span><br><span class="line">     <span class="keyword">return</span> <span class="built_in">console</span>.log(<span class="string">'connection failed'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">connectRMQ();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>上述的解决方案是在建立连接之后对连接添加<code>close</code>的监听事件，当<code>close</code>事件触发，<br>或者连接出错以及之后的步骤出错都在10s之后重新调用方法本身实现重连</p>
+<ol start="4">
+<li>还有一种简单粗暴的方法，监听<code>close</code>、<code>error</code> 事件， 有错误就抛出来，然后依靠外部的守护程序将此客户端重启</li>
+</ol>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><p>按照Issue区发现的解决方案进行实践，修改之前的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MQ_CONFIG = <span class="built_in">require</span>(<span class="string">'./conf/rabbitmq'</span>)</span><br><span class="line"><span class="keyword">const</span> REDIS_CONFIG = <span class="built_in">require</span>(<span class="string">'./conf/redis'</span>)</span><br><span class="line"><span class="keyword">const</span> Utils = <span class="built_in">require</span>(<span class="string">'./lib/Utils'</span>)</span><br><span class="line"><span class="keyword">const</span> pubRedisCli = Utils.connectRedis(REDIS_CONFIG.url)</span><br><span class="line"><span class="keyword">var</span> amqp = <span class="built_in">require</span>(<span class="string">'amqplib'</span>)</span><br><span class="line"><span class="keyword">var</span> ex = MQ_CONFIG.ex</span><br><span class="line"><span class="keyword">var</span> patten = MQ_CONFIG.routing_key</span><br><span class="line"><span class="keyword">var</span> exType = MQ_CONFIG.ex_type</span><br><span class="line"><span class="keyword">var</span> q = MQ_CONFIG.q || <span class="string">'signals'</span></span><br><span class="line"><span class="keyword">var</span> cnt = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  amqp</span><br><span class="line">    .connect(MQ_CONFIG.url)</span><br><span class="line">    .then(<span class="function"><span class="params">conn</span> =&gt;</span> &#123;</span><br><span class="line">      conn.on(<span class="string">'close'</span>, e =&gt; &#123;</span><br><span class="line">        reconnect(e)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> conn</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">conn</span> =&gt;</span> &#123;</span><br><span class="line">      cnt = <span class="number">0</span></span><br><span class="line">      log(<span class="string">'connect RMQ OK'</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">' [*] Waiting for signals. To exit press CTRL+C'</span>)</span><br><span class="line">      <span class="keyword">return</span> conn.createChannel()</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">ch</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> ch.assertQueue(q, &#123;</span><br><span class="line">        durable: <span class="literal">true</span></span><br><span class="line">      &#125;)</span><br><span class="line">        .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> ch.assertExchange(ex, exType, &#123;</span><br><span class="line">            durable: <span class="literal">true</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> ch.assertQueue(q, &#123;</span><br><span class="line">            durable: <span class="literal">true</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> ch.bindQueue(q, ex, patten)</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> ch.consume(q, (msg) =&gt; &#123;</span><br><span class="line">            pubRedisCli.publish(msg.fields.routingKey, msg.content.toString(), <span class="function"><span class="keyword">function</span> (<span class="params">err, reply</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                log(err)</span><br><span class="line">                ch.nack(msg)</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (reply !== <span class="number">0</span>) &#123;</span><br><span class="line">                  ch.ack(msg)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  ch.ack(msg)</span><br><span class="line">                  saveUnSubscribeMsg(msg.content.toString())</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">      reconnect(e)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconnect</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    log(e.message)</span><br><span class="line">    log(<span class="string">'lost RMQ connection'</span>)</span><br><span class="line">    cnt++</span><br><span class="line">    log(<span class="string">`正在第<span class="subst">$&#123;cnt&#125;</span>次重新连接RMQ...`</span>)</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        connect()</span><br><span class="line">    &#125;, <span class="number">10</span> * <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line">connect()</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * if signals didn't be subscribed, they would be saved to ./data dir</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; msg</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">saveUnSubscribeMsg</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleDateString()</span><br><span class="line">  <span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">  <span class="keyword">const</span> dir = <span class="string">'./data'</span></span><br><span class="line">  <span class="keyword">if</span> (!fs.existsSync(dir)) &#123;</span><br><span class="line">    fs.mkdirSync(dir)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> path = <span class="string">`<span class="subst">$&#123;dir&#125;</span>/<span class="subst">$&#123;date&#125;</span>.txt`</span></span><br><span class="line">  <span class="keyword">let</span> isExist = fs.existsSync(path)</span><br><span class="line">  <span class="keyword">if</span> (isExist) &#123;</span><br><span class="line">    fs.appendFileSync(path, msg)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    fs.writeFileSync(path, msg)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(...args, <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleString())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后进行测试：</p>
+<p>通过对MQserver的重启，均正常，然后将MQserver的机器的网断掉测试，发现了close事件并没有监听到，而是报了heartbeat超时的错误，从而程序直接退出了，于是又在代码中加入对error事件的监听：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">amqp</span><br><span class="line">  .connect(MQ_CONFIG.url)</span><br><span class="line">  .then(<span class="function"><span class="params">conn</span> =&gt;</span> &#123;</span><br><span class="line">    conn.on(<span class="string">'error'</span>, e =&gt; &#123;</span><br><span class="line">      reconnect(e)</span><br><span class="line">    &#125;)</span><br><span class="line">    conn.on(<span class="string">'close'</span>, e =&gt; &#123;</span><br><span class="line">      reconnect(e)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> conn</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<p>这下应该不会导致程序退出了吧，然而又引入了新的问题，当重启MQserver时，报了<code>ECONNECTRET</code>的错误，两个监听事件都监听到了，所以程序重连了两次，导致一个项目在MQserver上建立了两个连接，当再一次重启MQserver时，建立了四个连接！</p>
+<p>这是很严重的错误，然而并不是所有时候两个监听事件都能监听到，比如<code>heartbeat</code>超时就只报<code>error</code>的错误,所有需要想出一个策略，让程序始终与MQserver之间只有一个连接。</p>
+<p>采用声明一个变量，记录是不是正在连接</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isConnecting = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>如果已经在连接了，其他的重连都不做处理</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconnect</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!isConnecting) &#123;</span><br><span class="line">    isConnecting = <span class="literal">true</span></span><br><span class="line">    log(e.message)</span><br><span class="line">    log(<span class="string">'lost RMQ connection'</span>)</span><br><span class="line">    cnt++</span><br><span class="line">    log(<span class="string">`正在第<span class="subst">$&#123;cnt&#125;</span>次重新连接RMQ...`</span>)</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      connect()</span><br><span class="line">    &#125;, <span class="number">10</span> * <span class="number">1000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>连接上时将重连的标志设为<code>false</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.then(<span class="function"><span class="params">conn</span> =&gt;</span> &#123;</span><br><span class="line">  cnt = <span class="number">0</span></span><br><span class="line">  log(<span class="string">'connect RMQ OK'</span>)</span><br><span class="line">  isConnecting = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>于是乎，完整代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MQ_CONFIG = <span class="built_in">require</span>(<span class="string">'./conf/rabbitmq'</span>)</span><br><span class="line"><span class="keyword">const</span> REDIS_CONFIG = <span class="built_in">require</span>(<span class="string">'./conf/redis'</span>)</span><br><span class="line"><span class="keyword">const</span> Utils = <span class="built_in">require</span>(<span class="string">'./lib/Utils'</span>)</span><br><span class="line"><span class="keyword">const</span> pubRedisCli = Utils.connectRedis(REDIS_CONFIG.url)</span><br><span class="line"><span class="keyword">var</span> amqp = <span class="built_in">require</span>(<span class="string">'amqplib'</span>)</span><br><span class="line"><span class="keyword">var</span> ex = MQ_CONFIG.ex</span><br><span class="line"><span class="keyword">var</span> patten = MQ_CONFIG.routing_key</span><br><span class="line"><span class="keyword">var</span> exType = MQ_CONFIG.ex_type</span><br><span class="line"><span class="keyword">var</span> q = MQ_CONFIG.q || <span class="string">'signals'</span></span><br><span class="line"><span class="keyword">var</span> cnt = <span class="number">0</span></span><br><span class="line"><span class="keyword">var</span> isConnecting = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  amqp</span><br><span class="line">    .connect(MQ_CONFIG.url)</span><br><span class="line">    .then(<span class="function"><span class="params">conn</span> =&gt;</span> &#123;</span><br><span class="line">      conn.on(<span class="string">'error'</span>, (e) =&gt; &#123;</span><br><span class="line">        reconnect(e)</span><br><span class="line">      &#125;)</span><br><span class="line">      conn.on(<span class="string">'close'</span>, e =&gt; &#123;</span><br><span class="line">        reconnect(e)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> conn</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">conn</span> =&gt;</span> &#123;</span><br><span class="line">      cnt = <span class="number">0</span></span><br><span class="line">      log(<span class="string">'connect RMQ OK'</span>)</span><br><span class="line">      isConnecting = <span class="literal">false</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">' [*] Waiting for signals. To exit press CTRL+C'</span>)</span><br><span class="line">      <span class="keyword">return</span> conn.createChannel()</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">ch</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> ch.assertQueue(q, &#123;</span><br><span class="line">        durable: <span class="literal">true</span></span><br><span class="line">      &#125;)</span><br><span class="line">        .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> ch.assertExchange(ex, exType, &#123;</span><br><span class="line">            durable: <span class="literal">true</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> ch.assertQueue(q, &#123;</span><br><span class="line">            durable: <span class="literal">true</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> ch.bindQueue(q, ex, patten)</span><br><span class="line">        &#125;)</span><br><span class="line">        .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> ch.consume(q, (msg) =&gt; &#123;</span><br><span class="line">            pubRedisCli.publish(msg.fields.routingKey, msg.content.toString(), <span class="function"><span class="keyword">function</span> (<span class="params">err, reply</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                log(err)</span><br><span class="line">                ch.nack(msg)</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (reply !== <span class="number">0</span>) &#123;</span><br><span class="line">                  ch.ack(msg)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  ch.ack(msg)</span><br><span class="line">                  saveUnSubscribeMsg(msg.content.toString())</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">      isConnecting = <span class="literal">false</span></span><br><span class="line">      reconnect(e)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconnect</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!isConnecting) &#123;</span><br><span class="line">    isConnecting = <span class="literal">true</span></span><br><span class="line">    log(e.message)</span><br><span class="line">    log(<span class="string">'lost RMQ connection'</span>)</span><br><span class="line">    cnt++</span><br><span class="line">    log(<span class="string">`正在第<span class="subst">$&#123;cnt&#125;</span>次重新连接RMQ...`</span>)</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      connect()</span><br><span class="line">    &#125;, <span class="number">10</span> * <span class="number">1000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">connect()</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * if signals didn't be subscribed, they would be saved to ./data dir</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; msg</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">saveUnSubscribeMsg</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleDateString()</span><br><span class="line">  <span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">  <span class="keyword">const</span> dir = <span class="string">'./data'</span></span><br><span class="line">  <span class="keyword">if</span> (!fs.existsSync(dir)) &#123;</span><br><span class="line">    fs.mkdirSync(dir)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> path = <span class="string">`<span class="subst">$&#123;dir&#125;</span>/<span class="subst">$&#123;date&#125;</span>.txt`</span></span><br><span class="line">  <span class="keyword">let</span> isExist = fs.existsSync(path)</span><br><span class="line">  <span class="keyword">if</span> (isExist) &#123;</span><br><span class="line">    fs.appendFileSync(path, msg)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    fs.writeFileSync(path, msg)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(...args, <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleString())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-id="cjl3qocsp000t8stz8lzq7zor" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/mysql/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL中如何取得不同股票最近几日的日行情
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/20/Regex/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">正则表达式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/">Tutorial</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/Tool/">Tool</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 20px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/08/21/mysql/">MySQL中如何取得不同股票最近几日的日行情</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/10/rabbitmq-reconnect/">rabbitmq客户端自动重连</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/20/Regex/">正则表达式</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/18/rabbitmq-zh-tutorial/">rabbitmq中文教程(基于Node.js客户端)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/10/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Owen Zhao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

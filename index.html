@@ -19,10 +19,8 @@
 <meta name="twitter:title" content="Owen&#39;s Blogs">
 <meta name="twitter:description" content="Owen的博客网站">
   
-    <link rel="alternate" href="/atom.xml" title="Owen&#39;s Blogs" type="application/atom+xml">
   
-  
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/images/favicon.ico">
   
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -54,10 +52,10 @@
         
           <a class="main-nav-link" href="/archives">Archives</a>
         
+          <a class="main-nav-link" href="/about">About</a>
+        
       </nav>
       <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
@@ -69,6 +67,101 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-mysql" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/21/mysql/" class="article-date">
+  <time datetime="2018-08-21T12:25:31.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/21/mysql/">MySQL中如何取得不同股票最近几日的日行情</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#x33;&#48;&#x36;&#53;&#x39;&#48;&#x33;&#x40;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#x32;&#53;&#x33;&#48;&#x36;&#53;&#x39;&#48;&#x33;&#x40;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;</a></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>取得每只股票最近五天的日行情<br>由于每只股票可能停牌，停牌日期也不确定，所以每只股票的交易日都有可能是不同的。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>存在MySQL中的数据如下：(数据不是真实数据)<br>表名为: <code>day_quotes</code><br>
+        
+          <p class="article-more-link">
+            <a href="/2018/08/21/mysql/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/08/21/mysql/" data-id="cjl3qocsn000r8stzloueymy7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-rabbitmq-reconnect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/10/rabbitmq-reconnect/" class="article-date">
+  <time datetime="2018-08-10T07:30:01.000Z" itemprop="datePublished">2018-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/10/rabbitmq-reconnect/">rabbitmq客户端自动重连</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#x35;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#x33;&#64;&#113;&#113;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#x32;&#x35;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#x33;&#64;&#113;&#113;&#x2e;&#99;&#111;&#x6d;</a></p>
+<h2 id="RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连"><a href="#RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连" class="headerlink" title="RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连"></a><code>RabbitMQ</code> Node.js 客户端(<a href="https://www.npmjs.com/package/amqplib" target="_blank" rel="noopener">AMQP 0-9-1  V0.5.2</a>)自动重连</h2><h3 id="重启策略"><a href="#重启策略" class="headerlink" title="重启策略"></a>重启策略</h3><p>开始找解决方案：</p>
+<ol>
+<li><p>通过查看AMQP的源码，发现没有reconnect的选项</p>
+</li>
+<li><p>然后上GitHub上看有没有人提出类似的问题 <a href="https://github.com/squaremo/amqp.node" target="_blank" rel="noopener">github repo</a>，通过输入<code>reconnect</code>搜索issue区找到题为 <em>Support Auto-reconnection</em> 的<a href="https://github.com/squaremo/amqp.node/issues/25" target="_blank" rel="noopener">issue</a>，发现这个问题是早在 <strong>2013</strong> 年就提出来的，可是现在还是 <strong>open</strong><br>的状态！</p>
+</li>
+<li><p>在这个Issue区发现有一个解决方案还是可以实践一下的：</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/08/10/rabbitmq-reconnect/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-id="cjl3qocsp000t8stz8lzq7zor" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-Regex" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -88,7 +181,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/20/Regex/">Regex</a>
+      <a class="article-title" href="/2018/07/20/Regex/">正则表达式</a>
     </h1>
   
 
@@ -109,132 +202,16 @@
 </li>
 </ul>
 <hr>
-<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><h3 id="正则表达式的常用操作符"><a href="#正则表达式的常用操作符" class="headerlink" title="正则表达式的常用操作符"></a>正则表达式的常用操作符</h3><table>
-<thead>
-<tr>
-<th style="text-align:left">操作符</th>
-<th style="text-align:left">说明</th>
-<th style="text-align:left">实例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">.</td>
-<td style="text-align:left">表示任何单个字符</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">[ ]</td>
-<td style="text-align:left">字符集，对单个字符给出取值范围</td>
-<td style="text-align:left">[abc]表示a、b、c, [a-z]表示a到z单个字符</td>
-</tr>
-<tr>
-<td style="text-align:left">[ ^ ]</td>
-<td style="text-align:left">非字符集, 对单个字符给出排除范围</td>
-<td style="text-align:left">[^abc]表示非a、b、c的单个字符</td>
-</tr>
-<tr>
-<td style="text-align:left">*</td>
-<td style="text-align:left">前一个字符0次或无限次拓展</td>
-<td style="text-align:left">abc*表示ab、abc、abcc等</td>
-</tr>
-<tr>
-<td style="text-align:left">+</td>
-<td style="text-align:left">前一个字符1次或无限次拓展</td>
-<td style="text-align:left">abc+表示abc、abcc、abccc等</td>
-</tr>
-<tr>
-<td style="text-align:left">?</td>
-<td style="text-align:left">前一个字符0次或1次拓展</td>
-<td style="text-align:left">abc?表示ab、abc</td>
-</tr>
-<tr>
-<td style="text-align:left">&#124;</td>
-<td style="text-align:left">左右表达式任意一个</td>
-<td style="text-align:left">abc&#124;def表示abc、def</td>
-</tr>
-<tr>
-<td style="text-align:left">{ m }</td>
-<td style="text-align:left">拓展前一个字符m次</td>
-<td style="text-align:left">ab{2}c表示abbc</td>
-</tr>
-<tr>
-<td style="text-align:left">{ m,n }</td>
-<td style="text-align:left">拓展前一个字符m至n次，含n</td>
-<td style="text-align:left">ab{1,2}c表示abc、abbc</td>
-</tr>
-<tr>
-<td style="text-align:left">^</td>
-<td style="text-align:left">匹配字符串开头</td>
-<td style="text-align:left">^abc表示abc且在一个字符串的开头</td>
-</tr>
-<tr>
-<td style="text-align:left">$</td>
-<td style="text-align:left">匹配字符串结尾</td>
-<td style="text-align:left">abc$表示abc且在一个字符串的结尾</td>
-</tr>
-<tr>
-<td style="text-align:left">( )</td>
-<td style="text-align:left">分组标记,内部只能使用&#124;操作符</td>
-<td style="text-align:left">(abc)表示abc，(abc&#124;def)表示abc、def</td>
-</tr>
-<tr>
-<td style="text-align:left">\d</td>
-<td style="text-align:left">数字,等价于[0-9]</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">\w</td>
-<td style="text-align:left">单词字符，等价于[a-zA-Z0-9_]</td>
-</tr>
-</tbody>
-</table>
-<h3 id="经典正则表达式实例"><a href="#经典正则表达式实例" class="headerlink" title="经典正则表达式实例"></a>经典正则表达式实例</h3><table>
-<thead>
-<tr>
-<th style="text-align:left">正则</th>
-<th style="text-align:left">表示</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>^[A‐Za‐z]+$</code></td>
-<td style="text-align:left">由26个字母组成的字符串</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>^[A‐Za‐z0‐9]+$</code></td>
-<td style="text-align:left">由26个字母和数字组成的字符串</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>^‐?\d+$</code></td>
-<td style="text-align:left">整数形式的字符串</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>[1‐9]\d{5}</code></td>
-<td style="text-align:left">中国境内邮政编码，6位</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>[\u4e00‐\u9fa5]</code></td>
-<td style="text-align:left">匹配中文字符</td>
-</tr>
-<tr>
-<td style="text-align:left">\d{3}‐\d{8}&#124;\d{4}‐\d{7}</td>
-<td style="text-align:left">国内电话号码，010‐68913536</td>
-</tr>
-</tbody>
-</table>
-<h2 id="示例分析"><a href="#示例分析" class="headerlink" title="示例分析"></a>示例分析</h2><h3 id="匹配IP地址的正则表达式"><a href="#匹配IP地址的正则表达式" class="headerlink" title="匹配IP地址的正则表达式"></a>匹配IP地址的正则表达式</h3><p>IP地址字符串形式的正则表达式（IP地址分4段，每段0‐255）</p>
-<p>分段取得[0-255]</p>
-<p>0‐99:  <code>[1‐9]?\d</code></p>
-<p>100‐199:  <code>1\d{2}</code></p>
-<p>200‐249:  <code>2[0‐4]\d</code></p>
-<p>250‐255:  <code>25[0‐5]</code></p>
-<p><strong>最终:</strong> <code>(([1‐9]?\d|1\d{2}|2[0‐4]\d|25[0‐5]).){3}([1‐9]?\d|1\d{2}|2[0‐4]\d|25[0‐5])</code></p>
-
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2>
+        
+          <p class="article-more-link">
+            <a href="/2018/07/20/Regex/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/07/20/Regex/" data-id="cjjwuo55h0001mwtz5st04k83" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/07/20/Regex/" data-id="cjl3qocsi000o8stzwzs7tbtd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regex/">regex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tool/">tool</a></li></ul>
@@ -264,7 +241,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/18/rabbitmq-zh-tutorial/">rabbitmq-zh-tutorial</a>
+      <a class="article-title" href="/2018/07/18/rabbitmq-zh-tutorial/">rabbitmq中文教程(基于Node.js客户端)</a>
     </h1>
   
 
@@ -284,7 +261,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/07/18/rabbitmq-zh-tutorial/" data-id="cjjwuo55m0002mwtzjktv1wae" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/07/18/rabbitmq-zh-tutorial/" data-id="cjl3qocss000v8stz3yoj7dfk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>
@@ -298,8 +275,8 @@
   
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/07/18/hello-world/" class="article-date">
-  <time datetime="2018-07-18T13:01:08.833Z" itemprop="datePublished">2018-07-18</time>
+    <a href="/2018/07/10/hello-world/" class="article-date">
+  <time datetime="2018-07-10T12:13:03.000Z" itemprop="datePublished">2018-07-10</time>
 </a>
     
   </div>
@@ -310,7 +287,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/18/hello-world/">Hello World</a>
+      <a class="article-title" href="/2018/07/10/hello-world/">Hello World</a>
     </h1>
   
 
@@ -331,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/07/18/hello-world/" data-id="cjjwuo5560000mwtzh1is2gg8" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/07/10/hello-world/" data-id="cjl3qocsj000p8stzre53au6e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -361,7 +338,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
     </div>
   </div>
 
@@ -371,7 +348,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 10px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
+      <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 20px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
     </div>
   </div>
 
@@ -380,7 +357,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
     </div>
   </div>
 
@@ -393,15 +370,23 @@
       <ul>
         
           <li>
-            <a href="/2018/07/20/Regex/">Regex</a>
+            <a href="/2018/08/21/mysql/">MySQL中如何取得不同股票最近几日的日行情</a>
           </li>
         
           <li>
-            <a href="/2018/07/18/rabbitmq-zh-tutorial/">rabbitmq-zh-tutorial</a>
+            <a href="/2018/08/10/rabbitmq-reconnect/">rabbitmq客户端自动重连</a>
           </li>
         
           <li>
-            <a href="/2018/07/18/hello-world/">Hello World</a>
+            <a href="/2018/07/20/Regex/">正则表达式</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/18/rabbitmq-zh-tutorial/">rabbitmq中文教程(基于Node.js客户端)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/10/hello-world/">Hello World</a>
           </li>
         
       </ul>
@@ -427,6 +412,8 @@
     <a href="/" class="mobile-nav-link">Home</a>
   
     <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
   
 </nav>
     

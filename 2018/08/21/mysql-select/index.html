@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>MySQL中如何取得不同股票最近几日的日行情 | Owen&#39;s Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#x35;&amp;#51;&amp;#x30;&amp;#x36;&amp;#53;&amp;#x39;&amp;#x30;&amp;#51;&amp;#x40;&amp;#113;&amp;#x71;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d; 问题取得每只股票最近五天的日行情由于每只股票可能停牌，停牌日期也不确定，所以每只股票的交易日都有可能是不同的。 数据存在MySQL中的数据如下：(数据不是真实数据)表名为:">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL中如何取得不同股票最近几日的日行情">
+<meta property="og:url" content="https://owenlittlewhite.github.io/2018/08/21/mysql-select/index.html">
+<meta property="og:site_name" content="Owen&#39;s Blogs">
+<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#x35;&amp;#51;&amp;#x30;&amp;#x36;&amp;#53;&amp;#x39;&amp;#x30;&amp;#51;&amp;#x40;&amp;#113;&amp;#x71;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d; 问题取得每只股票最近五天的日行情由于每只股票可能停牌，停牌日期也不确定，所以每只股票的交易日都有可能是不同的。 数据存在MySQL中的数据如下：(数据不是真实数据)表名为:">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-22T12:42:20.713Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL中如何取得不同股票最近几日的日行情">
+<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#x35;&amp;#51;&amp;#x30;&amp;#x36;&amp;#53;&amp;#x39;&amp;#x30;&amp;#51;&amp;#x40;&amp;#113;&amp;#x71;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d; 问题取得每只股票最近五天的日行情由于每只股票可能停牌，停牌日期也不确定，所以每只股票的交易日都有可能是不同的。 数据存在MySQL中的数据如下：(数据不是真实数据)表名为:">
+  
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Owen&#39;s Blogs</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天空没有留下鸟的痕迹，但我已飞过</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://owenlittlewhite.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mysql-select" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/21/mysql-select/" class="article-date">
+  <time datetime="2018-08-21T12:25:31.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL中如何取得不同股票最近几日的日行情
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#x30;&#x36;&#53;&#x39;&#x30;&#51;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#x30;&#x36;&#53;&#x39;&#x30;&#51;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>取得每只股票最近五天的日行情<br>由于每只股票可能停牌，停牌日期也不确定，所以每只股票的交易日都有可能是不同的。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>存在MySQL中的数据如下：(数据不是真实数据)<br>表名为: <code>day_quotes</code><br><a id="more"></a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">stock_code</th>
+<th style="text-align:left">stock_name</th>
+<th style="text-align:left">trade_date</th>
+<th style="text-align:left">close_price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">SZ000001</td>
+<td style="text-align:left">平安银行</td>
+<td style="text-align:left">2018-08-21</td>
+<td style="text-align:left">9.92</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ000002</td>
+<td style="text-align:left">万科</td>
+<td style="text-align:left">2018-08-21</td>
+<td style="text-align:left">19.92</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ000725</td>
+<td style="text-align:left">京东方A</td>
+<td style="text-align:left">2018-08-21</td>
+<td style="text-align:left">3.57</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ300104</td>
+<td style="text-align:left">乐视网</td>
+<td style="text-align:left">2018-08-21</td>
+<td style="text-align:left">2.29</td>
+</tr>
+<tr>
+<td style="text-align:left">SH601318</td>
+<td style="text-align:left">中国平安</td>
+<td style="text-align:left">2018-08-19</td>
+<td style="text-align:left">20.23</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ000001</td>
+<td style="text-align:left">平安银行</td>
+<td style="text-align:left">2018-08-20</td>
+<td style="text-align:left">9.00</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ000002</td>
+<td style="text-align:left">万科</td>
+<td style="text-align:left">2018-08-18</td>
+<td style="text-align:left">19.20</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ000725</td>
+<td style="text-align:left">京东方A</td>
+<td style="text-align:left">2018-08-20</td>
+<td style="text-align:left">3.89</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ300104</td>
+<td style="text-align:left">乐视网</td>
+<td style="text-align:left">2018-08-18</td>
+<td style="text-align:left">3.00</td>
+</tr>
+<tr>
+<td style="text-align:left">SH601318</td>
+<td style="text-align:left">中国平安</td>
+<td style="text-align:left">2018-08-14</td>
+<td style="text-align:left">20.33</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ000001</td>
+<td style="text-align:left">平安银行</td>
+<td style="text-align:left">2018-08-10</td>
+<td style="text-align:left">9.92</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ000002</td>
+<td style="text-align:left">万科</td>
+<td style="text-align:left">2018-08-15</td>
+<td style="text-align:left">20.92</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ000725</td>
+<td style="text-align:left">京东方A</td>
+<td style="text-align:left">2018-08-07</td>
+<td style="text-align:left">3.59</td>
+</tr>
+<tr>
+<td style="text-align:left">SZ300104</td>
+<td style="text-align:left">乐视网</td>
+<td style="text-align:left">2018-08-19</td>
+<td style="text-align:left">2.59</td>
+</tr>
+<tr>
+<td style="text-align:left">SH601318</td>
+<td style="text-align:left">中国平安</td>
+<td style="text-align:left">2018-08-06</td>
+<td style="text-align:left">20.15</td>
+</tr>
+<tr>
+<td style="text-align:left">…</td>
+<td style="text-align:left">…</td>
+<td style="text-align:left">…</td>
+<td style="text-align:left">…</td>
+</tr>
+</tbody>
+</table>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><p>思路是先取到每只股票，然后对每只股票按照<code>trade_date</code>交易日期的倒序排序取前五，并将其插入到临时表中，然后<code>select</code>临时表取得最终的结果集</p>
+<p>优点：思路简单</p>
+<p>缺点：操作繁琐，需要写存储过程，还要使用游标以及临时表，速度也相对较慢</p>
+<h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><p>按照股票代码及交易日期的倒序排序并对每只股票的行情数据按照交易日的从大到小打上序号，然后通过<code>select</code>语句加上<code>where</code>条件将所有序号小于等于5的筛选出来</p>
+<p>具体代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> stock_code, trade_date, close_price,dt_rank</span><br><span class="line"> <span class="keyword">FROM</span></span><br><span class="line"> (</span><br><span class="line">   <span class="keyword">SELECT</span> stock_code, trade_date,vol_amt, vol_value,</span><br><span class="line">   @dt_rank := <span class="keyword">IF</span>(@current_stock_code = stock_code, </span><br><span class="line">                         @dt_rank + <span class="number">1</span>, </span><br><span class="line">                         <span class="number">1</span></span><br><span class="line">                      ) <span class="keyword">AS</span> dt_rank,</span><br><span class="line">   @current_stock_code := stock_code</span><br><span class="line">   <span class="keyword">FROM</span> day_quotes</span><br><span class="line">   <span class="keyword">ORDER</span> <span class="keyword">BY</span> stock_code, trade_date <span class="keyword">DESC</span></span><br><span class="line"> ) ranked</span><br><span class="line"> <span class="keyword">WHERE</span> dt_rank &lt;= <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>知识点在于SQL语句中设置了变量，通过<code>:=</code>对变量赋值，并用了IF函数</p>
+<p>优点：写法简洁，速度较第一种思路更快</p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>此前遇到此类问题总是用第一种方法去做，语句写起来很繁琐，而第二种方法只要想到了思路也很容易理解<br>写起来也比较简洁，遇到问题还是应该去寻求更简洁更高效的方法，并要举一反三。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>有其他优秀的解法也可以联系我，文中有错误也欢迎指正<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#51;&#x30;&#x36;&#53;&#x39;&#x30;&#x33;&#64;&#x71;&#x71;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#50;&#53;&#51;&#x30;&#x36;&#53;&#x39;&#x30;&#x33;&#64;&#x71;&#x71;&#46;&#99;&#x6f;&#109;</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/08/21/mysql-select/" data-id="cjl54vt040004ootzqgmd1o7o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/22/mysql-select2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL中取得股票最近几日行情举一反三
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/10/rabbitmq-reconnect/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">rabbitmq客户端自动重连</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/">Tutorial</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/Tool/">Tool</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 20px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/08/22/mysql-select2/">MySQL中取得股票最近几日行情举一反三</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/21/mysql-select/">MySQL中如何取得不同股票最近几日的日行情</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/10/rabbitmq-reconnect/">rabbitmq客户端自动重连</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/20/Regex/">正则表达式</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/18/rabbitmq-zh-tutorial/">rabbitmq中文教程(基于Node.js客户端)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Owen Zhao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

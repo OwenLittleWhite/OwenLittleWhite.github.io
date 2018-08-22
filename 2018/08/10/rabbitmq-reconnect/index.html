@@ -7,18 +7,18 @@
   
   <title>rabbitmq客户端自动重连 | Owen&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#x33;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项">
+  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#51;&amp;#x40;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项  然后">
 <meta name="keywords" content="rabbitmq,node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rabbitmq客户端自动重连">
 <meta property="og:url" content="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/index.html">
 <meta property="og:site_name" content="Owen&#39;s Blogs">
-<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#x33;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项">
+<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#51;&amp;#x40;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项  然后">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-08-21T12:38:29.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rabbitmq客户端自动重连">
-<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#x33;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项">
+<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#51;&amp;#x40;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项  然后">
   
   
     <link rel="icon" href="/images/favicon.ico">
@@ -89,7 +89,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#x35;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#x33;&#64;&#113;&#113;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#x32;&#x35;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#x33;&#64;&#113;&#113;&#x2e;&#99;&#111;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#51;&#x30;&#x36;&#53;&#57;&#48;&#51;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#50;&#53;&#51;&#x30;&#x36;&#53;&#57;&#48;&#51;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#109;</a></p>
 <h2 id="RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连"><a href="#RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连" class="headerlink" title="RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连"></a><code>RabbitMQ</code> Node.js 客户端(<a href="https://www.npmjs.com/package/amqplib" target="_blank" rel="noopener">AMQP 0-9-1  V0.5.2</a>)自动重连</h2><h3 id="重启策略"><a href="#重启策略" class="headerlink" title="重启策略"></a>重启策略</h3><p>开始找解决方案：</p>
 <ol>
 <li><p>通过查看AMQP的源码，发现没有reconnect的选项</p>
@@ -124,7 +124,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-id="cjl3qocsp000t8stz8lzq7zor" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-id="cjl54vt1v000wootzmwqzuk94" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>
@@ -135,7 +135,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/08/21/mysql/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/08/21/mysql-select/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -183,7 +183,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 20px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
+      <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 20px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
     </div>
   </div>
 
@@ -205,7 +205,11 @@
       <ul>
         
           <li>
-            <a href="/2018/08/21/mysql/">MySQL中如何取得不同股票最近几日的日行情</a>
+            <a href="/2018/08/22/mysql-select2/">MySQL中取得股票最近几日行情举一反三</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/21/mysql-select/">MySQL中如何取得不同股票最近几日的日行情</a>
           </li>
         
           <li>
@@ -218,10 +222,6 @@
         
           <li>
             <a href="/2018/07/18/rabbitmq-zh-tutorial/">rabbitmq中文教程(基于Node.js客户端)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/07/10/hello-world/">Hello World</a>
           </li>
         
       </ul>

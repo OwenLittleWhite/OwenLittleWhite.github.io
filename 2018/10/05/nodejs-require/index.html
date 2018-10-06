@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>浅谈node.js模块引入机制 | Owen&#39;s Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#x35;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x39;&amp;#x30;&amp;#x33;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d; 之前笔者对nodejs中的模块是如何引入的也是一头雾水，读了一本《深入浅出nodejs》，加上自己工作时的经验和理解，有如下的总结，欢迎同仁指教~ 前言CommonJS的模块">
+<meta name="keywords" content="node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈node.js模块引入机制">
+<meta property="og:url" content="https://owenlittlewhite.github.io/2018/10/05/nodejs-require/index.html">
+<meta property="og:site_name" content="Owen&#39;s Blogs">
+<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#x35;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x39;&amp;#x30;&amp;#x33;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d; 之前笔者对nodejs中的模块是如何引入的也是一头雾水，读了一本《深入浅出nodejs》，加上自己工作时的经验和理解，有如下的总结，欢迎同仁指教~ 前言CommonJS的模块">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-06T09:28:57.180Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈node.js模块引入机制">
+<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#x35;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x39;&amp;#x30;&amp;#x33;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#99;&amp;#111;&amp;#x6d; 之前笔者对nodejs中的模块是如何引入的也是一头雾水，读了一本《深入浅出nodejs》，加上自己工作时的经验和理解，有如下的总结，欢迎同仁指教~ 前言CommonJS的模块">
+  
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Owen&#39;s Blogs</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天空没有留下鸟的痕迹，但我已飞过</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://owenlittlewhite.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-nodejs-require" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/05/nodejs-require/" class="article-date">
+  <time datetime="2018-10-05T08:50:25.000Z" itemprop="datePublished">2018-10-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈node.js模块引入机制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#x30;&#x36;&#x35;&#x39;&#x30;&#x33;&#64;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#x30;&#x36;&#x35;&#x39;&#x30;&#x33;&#64;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p>之前笔者对nodejs中的模块是如何引入的也是一头雾水，读了一本《深入浅出nodejs》，加上自己工作时的经验和理解，有如下的总结，欢迎同仁指教~</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>CommonJS的模块规范指出模块主要分为三部分：模块引用、模块定义、模块标识</p>
+<h3 id="模块引用"><a href="#模块引用" class="headerlink" title="模块引用"></a>模块引用</h3><p>模块引用的示例代码如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>)</span><br></pre></td></tr></table></figure>
+<p>在CommonJS规范中，存在<code>require()</code>方法,这个方法接受的参数为模块标识，以此引入一个模块的API到当前的上下文中。</p>
+<h3 id="模块定义"><a href="#模块定义" class="headerlink" title="模块定义"></a>模块定义</h3><p>在模块中，上下文提供<code>require()</code>方法来引入外部模块。对应引入共能，上下文还提供了<code>exports</code>对象用于导出当前模块的方法或者变量。模块中还有一<code>module</code>对象，代表模块自身，<code>exports</code>是<code>module</code>对象的属性。在<code>Node</code>中，一个文件就是一个模块，将方法挂载在<code>exports</code>对象上作为属性即可定义导出的方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// math</span></span><br><span class="line">exports.add = <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> sum = <span class="number">0</span></span><br><span class="line">  args.forEach(<span class="function"><span class="params">i</span> =&gt;</span> &#123;</span><br><span class="line">    sum += i</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>在另外一个文件中，通过<code>require()</code>方法引入该模块，就可以调用其方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// program.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>)</span><br><span class="line">exports.increment = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> math.add(val, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="模块标识"><a href="#模块标识" class="headerlink" title="模块标识"></a>模块标识</h3><p>模块标识其实就是传递给<code>require()</code>方法的参数，它必须是符合小驼峰命名的字符串，或者以<code>.</code>、<code>..</code>开头的相对路径，或者绝对路径。它可以没有文件后缀<code>.js</code>。</p>
+<h2 id="Node的模块加载过程"><a href="#Node的模块加载过程" class="headerlink" title="Node的模块加载过程"></a>Node的模块加载过程</h2><p>在Node中引入模块，需要经历3个步骤：</p>
+<ol>
+<li>路径分析</li>
+<li>文件定位</li>
+<li>编译执行</li>
+</ol>
+<p>在Node中模块分为两类：一类是Node提供的模块，称为核心模块；另一类是用户编写的，称为文件模块。</p>
+<h3 id="优先从缓存中加载"><a href="#优先从缓存中加载" class="headerlink" title="优先从缓存中加载"></a>优先从缓存中加载</h3><p>Node会对引用过的模块进行缓存，以减少再次引用时的开销。Node缓存的是编译和执行之后的对象。</p>
+<p>不论是核心模块还是文件模块，<code>require()</code>方法对相同模块的二次加载一律采用缓存优先的策略，是 <strong>第一优先级的</strong> 。不同之处在于核心模块的缓存检查要先于文件模块的缓存检查。</p>
+<h3 id="路径分析和文件定位"><a href="#路径分析和文件定位" class="headerlink" title="路径分析和文件定位"></a>路径分析和文件定位</h3><p>对于不同的标识符，模块的查找和定位会有不同程度上的差异。</p>
+<h4 id="模块标识符分析"><a href="#模块标识符分析" class="headerlink" title="模块标识符分析"></a>模块标识符分析</h4><p>模块标识符分为如下几类：</p>
+<ul>
+<li>核心模块，如<code>http</code>、<code>fs</code>、<code>path</code>等；</li>
+<li><code>.</code>或者<code>..</code>开始的相对路径的文件模块；</li>
+<li>以<code>/</code>开始的绝对路径的文件模块；</li>
+<li>非路径形式的文件模块，如<code>express</code>模块。</li>
+</ul>
+<p><strong>核心模块</strong></p>
+<p>核心模块的优先级仅次于缓存加载，加载速度最快，如果想要加载一个和核心模块同名的自定义模块，不会成功</p>
+<p><strong>路径形式的文件模块</strong></p>
+<p>以<code>.</code>、<code>..</code>开头的标识符，在分析路径是会将其转换为绝对路径并将绝对路径作为索引，将编译执行后的结果存在缓存中。</p>
+<p>文件模块给出了文件所在的确切位置，查找可以节约大量时间，加载速度慢于核心模块。</p>
+<p><strong>自定义模块</strong></p>
+<p>自定义模块指的是非核心模块，也不是路径形式的标识符。它是特殊的一种文件模块，可能是一个文件或者包的形式，这类模块查找最费时间，所以加载最慢。</p>
+<p><em>模块路径</em> 是Node在定位文件模块的具体文件时制定的查找策略，具体表现是一个路径的数组，这个路径的生成规则，可以动手尝试一番：</p>
+<ol>
+<li>创建一个<code>path_test.js</code>的文件，其内容为<code>console.log(module.paths)</code></li>
+<li>将其放在任意一个目录中并通过node执行<code>node path_test.js</code>。</li>
+</ol>
+<p>可能会得到如下输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[ &apos;E:\\workspace\\myBlog\\node_modules&apos;,</span><br><span class="line">  &apos;E:\\workspace\\node_modules&apos;,</span><br><span class="line">  &apos;E:\\node_modules&apos; ]</span><br></pre></td></tr></table></figure>
+<p>可以看出，模块路径的生成规则如下：</p>
+<ul>
+<li>当前文件目录下的<code>node_modules</code>目录。</li>
+<li>父目录下的<code>node_modules</code>目录。</li>
+<li>父目录的父目录下的<code>node_modules</code>目录。</li>
+<li>沿路径向上逐级递归，直到根目录下的<code>node_modules</code>目录。</li>
+</ul>
+<p>可以看出，当前文件的路径越深，模块查找的耗时越多，这是自定义模块加载速度最慢的原因。</p>
+<h4 id="文件定位"><a href="#文件定位" class="headerlink" title="文件定位"></a>文件定位</h4><p>文件定位还包括一些细节：文件拓展名的分析、目录和包的处理。</p>
+<p><strong>文件拓展名的分析</strong></p>
+<p>因为模块的标识符也就是<code>require()</code>方法的参数是可以不含有文件拓展名的，这种情况下，Node会按照<code>.js</code>、<code>.json</code>、<code>.node</code>的次序补足拓展名，依次尝试。</p>
+<p><strong>目录分析和包</strong></p>
+<p>通过分析文件拓展名之后可能没有得到一个文件，但是得到一个目录此时Node会将目录当作一个包处理。</p>
+<p>Node会在当前目录下查找<code>package.json</code>文件，通过<code>JSON.parse()</code>解析出包描述对象，取出<code>main</code>属性来对文件定位。如果<code>main</code>指向的文件没有，或者没有<code>package.json</code>文件,则依次查找<code>index.js</code>、<code>index.json</code>、<code>index.node</code>。</p>
+<p>目录分析的过程中如果没有成功定位任何文件，则进入下一个模块路径进行定位。所有的模块路径遍历完还没找到则抛出查找失败的异常。</p>
+<h4 id="模块编译"><a href="#模块编译" class="headerlink" title="模块编译"></a>模块编译</h4><blockquote>
+<p>注：这里提到的模块编译都是指文件模块</p>
+</blockquote>
+<p>在Node中，每个文件模块都是一个<code>Module</code>对象，可以写一个测试文件<code>console.log(module)</code>,并运行得到如下结果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Module &#123;</span><br><span class="line">  id: <span class="string">'.'</span>,</span><br><span class="line">  exports: &#123;&#125;,</span><br><span class="line">  parent: <span class="literal">null</span>,</span><br><span class="line">  filename: <span class="string">'E:\\workspace\\myBlog\\test.js'</span>,</span><br><span class="line">  loaded: <span class="literal">false</span>,</span><br><span class="line">  children:</span><br><span class="line">   [ Module &#123;</span><br><span class="line">       id: <span class="string">'E:\\workspace\\myBlog\\node_modules\\hehe.js'</span>,</span><br><span class="line">       exports: <span class="number">5</span>,</span><br><span class="line">       parent: [Circular],</span><br><span class="line">       filename: <span class="string">'E:\\workspace\\myBlog\\node_modules\\hehe.js'</span>,</span><br><span class="line">       loaded: <span class="literal">true</span>,</span><br><span class="line">       children: [],</span><br><span class="line">       paths: [<span class="built_in">Array</span>] &#125; ],</span><br><span class="line">  paths:</span><br><span class="line">   [ <span class="string">'E:\\workspace\\myBlog\\node_modules'</span>,</span><br><span class="line">     <span class="string">'E:\\workspace\\node_modules'</span>,</span><br><span class="line">     <span class="string">'E:\\node_modules'</span> ] &#125;</span><br></pre></td></tr></table></figure>
+<p>具体编译的方式视文件的拓展名而定</p>
+<p><strong>JavaScript模块的编译</strong></p>
+<p>每个模块文件中存在着<code>require</code>、<code>exports</code>、<code>module</code>这三个变量，通过阅读Node的文档，还有<code>__filename</code>、<code>__dirname</code>这两个变量，他们从何而来？</p>
+<p>实际上，在编译的过程中，Node对获取的Javascript文件的内容进行了包装。将文件包裹在</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">exports, require, module, __filename, __dirname</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Javascript 文件的内容</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>一个正常的JavaScript文件可能会被包装成这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">exports, require, module, __filename, __dirname</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>)</span><br><span class="line">  exports.area= <span class="function"><span class="keyword">function</span> (<span class="params">radius</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.PI * radius * radius</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样每个模块文件之间都进行了作用域的隔离，在执行之后，模块的<code>exports</code>属性返回给了调用方，模块的<code>exports</code>属性上的方法以及属性都可以被外部调用的到，其他变量方法不可直接被调用。</p>
+<p>另外不可直接对<code>exports</code>赋值，原因在于，<code>exports</code>对象是通过形参的方式传入的，直接赋值形参会改变形参的引用，但不能改变作用域外的值。解决方法是赋值给<code>module.exports</code>对象</p>
+<p><strong>C/C++模块的编译</strong></p>
+<p>Node调用<code>process.dlopen()</code>方法进行加载和执行，执行的过程中，模块的<code>exports</code>对象与<code>.node</code>模块产生联系，然后返回给调用者。</p>
+<p><strong>JSON文件的编译</strong></p>
+<p>Node利用<code>fs</code>模块同步读取JSON文件的内容，并将内容通过<code>JSON.parse()</code>得到对象赋给<code>exports</code>对象，供外部调用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/10/05/nodejs-require/" data-id="cjmx6eadk0009cwtzr6kcgxgc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/09/19/config-cloud/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">重置完阿里云要做的步骤(Ubuntu16.04)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/">Tutorial</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/Tool/">Tool</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 15px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/05/nodejs-require/">浅谈node.js模块引入机制</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/config-cloud/">重置完阿里云要做的步骤(Ubuntu16.04)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/30/mongodb-install-ubuntu/">在Ubuntu上安装社区版MongoDB</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/22/mysql-select2/">MySQL中取得股票最近几日行情举一反三</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/21/mysql-select/">MySQL中如何取得不同股票最近几日的日行情</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Owen Zhao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

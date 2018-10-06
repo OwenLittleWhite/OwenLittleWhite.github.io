@@ -68,6 +68,176 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-nodejs-require" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/05/nodejs-require/" class="article-date">
+  <time datetime="2018-10-05T08:50:25.000Z" itemprop="datePublished">2018-10-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/05/nodejs-require/">浅谈node.js模块引入机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#x30;&#x36;&#x35;&#x39;&#x30;&#x33;&#64;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#x30;&#x36;&#x35;&#x39;&#x30;&#x33;&#64;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p>之前笔者对nodejs中的模块是如何引入的也是一头雾水，读了一本《深入浅出nodejs》，加上自己工作时的经验和理解，有如下的总结，欢迎同仁指教~</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>CommonJS的模块规范指出模块主要分为三部分：模块引用、模块定义、模块标识</p>
+<h3 id="模块引用"><a href="#模块引用" class="headerlink" title="模块引用"></a>模块引用</h3><p>模块引用的示例代码如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>)</span><br></pre></td></tr></table></figure>
+<p>在CommonJS规范中，存在<code>require()</code>方法,这个方法接受的参数为模块标识，以此引入一个模块的API到当前的上下文中。</p>
+<h3 id="模块定义"><a href="#模块定义" class="headerlink" title="模块定义"></a>模块定义</h3><p>在模块中，上下文提供<code>require()</code>方法来引入外部模块。对应引入共能，上下文还提供了<code>exports</code>对象用于导出当前模块的方法或者变量。模块中还有一<code>module</code>对象，代表模块自身，<code>exports</code>是<code>module</code>对象的属性。在<code>Node</code>中，一个文件就是一个模块，将方法挂载在<code>exports</code>对象上作为属性即可定义导出的方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// math</span></span><br><span class="line">exports.add = <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> sum = <span class="number">0</span></span><br><span class="line">  args.forEach(<span class="function"><span class="params">i</span> =&gt;</span> &#123;</span><br><span class="line">    sum += i</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2018/10/05/nodejs-require/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/10/05/nodejs-require/" data-id="cjmx6eadk0009cwtzr6kcgxgc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-config-cloud" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/19/config-cloud/" class="article-date">
+  <time datetime="2018-09-19T09:38:44.000Z" itemprop="datePublished">2018-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/19/config-cloud/">重置完阿里云要做的步骤(Ubuntu16.04)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#x30;&#x36;&#53;&#x39;&#48;&#51;&#x40;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#x30;&#x36;&#53;&#x39;&#48;&#51;&#x40;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;</a></p>
+<ul>
+<li><p><a href="#增加新用户">增加新用户</a></p>
+</li>
+<li><p><a href="#安装nginx">安装nginx</a></p>
+</li>
+<li><p><a href="#安装NodeJS">安装NodeJS</a></p>
+</li>
+<li><p><a href="#安装MongoDB">安装MongoDB</a></p>
+</li>
+</ul>
+<hr>
+<h2 id="增加新用户"><a href="#增加新用户" class="headerlink" title="增加新用户"></a>增加新用户</h2><h3 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo adduser username</span><br></pre></td></tr></table></figure>
+<p>其中username是你要创建的用户的名字，然后设置密码还有相关信息就可以了</p>
+<h3 id="赋予新用户sudo权限"><a href="#赋予新用户sudo权限" class="headerlink" title="赋予新用户sudo权限"></a>赋予新用户sudo权限</h3><p>用adduser创建后的新用户是不能使用sudo的，因为还没有赋予相关root权限，执行以下代码赋予权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -a -G adm username</span><br><span class="line">sudo usermod -a -G sudo username</span><br></pre></td></tr></table></figure>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><p>当需要删除用户时可以使用以下指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo userdel -r username</span><br></pre></td></tr></table></figure>
+<p>这个指令会删除用户username并把该用户下的所有文件（/home/username/路径下的所有文件）都删除，若要保留这些文件而仅仅删除用户，可使用以下指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo userdel username</span><br></pre></td></tr></table></figure>
+<h2 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h2><ul>
+<li><p><a href="https://nginx.org/en/linux_packages.html" target="_blank" rel="noopener">安装</a></p>
+</li>
+<li><p><a href="https://nginx.org/en/docs/beginners_guide.html" target="_blank" rel="noopener">配置与启动</a></p>
+</li>
+</ul>
+<h2 id="安装NodeJS"><a href="#安装NodeJS" class="headerlink" title="安装NodeJS"></a>安装NodeJS</h2><p><a href="https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions" target="_blank" rel="noopener">https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions</a></p>
+<p>执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
+<h2 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h2><p><a href="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/">https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/09/19/config-cloud/" data-id="cjmx6ead60002cwtzv5moruu3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mongodb-install-ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/30/mongodb-install-ubuntu/" class="article-date">
+  <time datetime="2018-08-30T06:13:14.000Z" itemprop="datePublished">2018-08-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/30/mongodb-install-ubuntu/">在Ubuntu上安装社区版MongoDB</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#51;&#x30;&#x36;&#53;&#57;&#x30;&#51;&#64;&#113;&#113;&#x2e;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#51;&#x30;&#x36;&#53;&#57;&#x30;&#51;&#64;&#113;&#113;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>本文章来自MongoDB官方文档 ☞ <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition-on-ubuntu" target="_blank" rel="noopener">原文链接</a></p>
+<ul>
+<li><a href="#概述">概述</a> </li>
+<li><a href="#软件包">软件包</a></li>
+<li><a href="#安装MongoDB社区版">安装MongoDB社区版</a></li>
+<li><a href="#运行MongoDB">运行MongoDB</a></li>
+<li><a href="#卸载MongoDB">卸载MongoDB</a></li>
+</ul>
+<hr>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在本教程中,使用<code>.deb</code>包，在LTS Ubuntu系统中安装MongoDB社区版。</p>
+<div style="background-color:#fff2d5;margin: 24px 0;width: auto;max-width: 100%;padding: 2px 12px 22px;border-left: 5px solid #ffb618;"><br><p style="color:#ffb618;">重要：</p>由Ubuntu提供的非官方<code>mongodb</code>包<strong>不是</strong>由MongoDB维护的。 您应该始终使用官方的MongoDB <code>mongodb-org</code>软件包，它们与最新的主要和次要MongoDB版本保持同步。</div>
+        
+          <p class="article-more-link">
+            <a href="/2018/08/30/mongodb-install-ubuntu/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/" data-id="cjmx6eadc0004cwtza8tm2wmj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-mysql-select2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/22/mysql-select2/" class="article-date">
@@ -90,7 +260,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#48;&#x36;&#x35;&#57;&#x30;&#x33;&#x40;&#113;&#x71;&#46;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#48;&#x36;&#x35;&#57;&#x30;&#x33;&#x40;&#113;&#x71;&#46;&#99;&#111;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#48;&#54;&#x35;&#x39;&#x30;&#51;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#48;&#54;&#x35;&#x39;&#x30;&#51;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#109;</a></p>
 <p>通过在SQL语句中定义变量的方法，我们可以按照顺序得到数据的排名，还可以做一些类似于错位相减的操作。</p>
 <p>本篇博文还是基于上一篇<a href="/2018/08/21/mysql-select">博文</a>的数据</p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>得到股票每日的涨幅：（当日的收盘价-上个交易日的收盘价）/上个交易日的收盘价</p>
@@ -103,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/22/mysql-select2/" data-id="cjl54vt0b0007ootz88otcf6u" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/22/mysql-select2/" data-id="cjmx6eadh0007cwtz2ifp26w7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -137,7 +307,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#x30;&#x36;&#53;&#x39;&#x30;&#51;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#x30;&#x36;&#53;&#x39;&#x30;&#51;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#51;&#48;&#x36;&#x35;&#57;&#x30;&#x33;&#x40;&#x71;&#113;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#50;&#53;&#51;&#48;&#x36;&#x35;&#57;&#x30;&#x33;&#x40;&#x71;&#113;&#46;&#99;&#111;&#109;</a></p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>取得每只股票最近五天的日行情<br>由于每只股票可能停牌，停牌日期也不确定，所以每只股票的交易日都有可能是不同的。</p>
 <h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>存在MySQL中的数据如下：(数据不是真实数据)<br>表名为: <code>day_quotes</code><br>
         
@@ -148,7 +318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/21/mysql-select/" data-id="cjl54vt040004ootzqgmd1o7o" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/21/mysql-select/" data-id="cjmx6eadf0006cwtzdfaps1dz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -182,7 +352,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#51;&#x30;&#x36;&#53;&#57;&#48;&#51;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#50;&#53;&#51;&#x30;&#x36;&#53;&#57;&#48;&#51;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#109;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#x33;&#48;&#54;&#53;&#x39;&#48;&#x33;&#x40;&#x71;&#113;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#x33;&#48;&#54;&#53;&#x39;&#48;&#x33;&#x40;&#x71;&#113;&#46;&#99;&#111;&#109;</a></p>
 <h2 id="RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连"><a href="#RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连" class="headerlink" title="RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连"></a><code>RabbitMQ</code> Node.js 客户端(<a href="https://www.npmjs.com/package/amqplib" target="_blank" rel="noopener">AMQP 0-9-1  V0.5.2</a>)自动重连</h2><h3 id="重启策略"><a href="#重启策略" class="headerlink" title="重启策略"></a>重启策略</h3><p>开始找解决方案：</p>
 <ol>
 <li><p>通过查看AMQP的源码，发现没有reconnect的选项</p>
@@ -198,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-id="cjl54vt1v000wootzmwqzuk94" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-id="cjmx6eaee0011cwtz6k1ytfce" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>
@@ -258,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/07/20/Regex/" data-id="cjl54vszp0000ootzkq8nj3ga" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/07/20/Regex/" data-id="cjmx6eado000ccwtzrc63nops" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regex/">regex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tool/">tool</a></li></ul>
@@ -304,11 +474,12 @@
 <p><strong><a href="https://github.com/OwenLittleWhite/ChineseRabbitMqTutorial/blob/master/Tutorial3.md" target="_blank" rel="noopener">教程3：‘Publish/subscribe’</a></strong></p>
 <p><strong><a href="https://github.com/OwenLittleWhite/ChineseRabbitMqTutorial/blob/master/Tutorial4.md" target="_blank" rel="noopener">教程4：‘Routing’</a></strong></p>
 <p><strong><a href="https://github.com/OwenLittleWhite/ChineseRabbitMqTutorial/blob/master/Tutorial5.md" target="_blank" rel="noopener">教程5：‘Topics’</a></strong></p>
+<p><strong><a href="https://github.com/OwenLittleWhite/ChineseRabbitMqTutorial/blob/master/Tutorial6.md" target="_blank" rel="noopener">教程6：‘RPC’</a></strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/07/18/rabbitmq-zh-tutorial/" data-id="cjl54vt0e000aootzgw029aia" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/07/18/rabbitmq-zh-tutorial/" data-id="cjmx6eadm000acwtz9l9bgzru" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>
@@ -355,7 +526,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/07/10/hello-world/" data-id="cjl54vt080006ootzbvoj1y7t" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/07/10/hello-world/" data-id="cjmx6eaeh0012cwtzwbw8xuqr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -385,7 +556,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
     </div>
   </div>
 
@@ -395,7 +566,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 20px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
+      <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 15px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
     </div>
   </div>
 
@@ -404,7 +575,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
     </div>
   </div>
 
@@ -417,23 +588,23 @@
       <ul>
         
           <li>
+            <a href="/2018/10/05/nodejs-require/">浅谈node.js模块引入机制</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/config-cloud/">重置完阿里云要做的步骤(Ubuntu16.04)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/30/mongodb-install-ubuntu/">在Ubuntu上安装社区版MongoDB</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/22/mysql-select2/">MySQL中取得股票最近几日行情举一反三</a>
           </li>
         
           <li>
             <a href="/2018/08/21/mysql-select/">MySQL中如何取得不同股票最近几日的日行情</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/10/rabbitmq-reconnect/">rabbitmq客户端自动重连</a>
-          </li>
-        
-          <li>
-            <a href="/2018/07/20/Regex/">正则表达式</a>
-          </li>
-        
-          <li>
-            <a href="/2018/07/18/rabbitmq-zh-tutorial/">rabbitmq中文教程(基于Node.js客户端)</a>
           </li>
         
       </ul>
@@ -465,7 +636,7 @@
 </nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 
 
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">

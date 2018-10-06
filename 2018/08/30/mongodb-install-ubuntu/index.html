@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>在Ubuntu上安装社区版MongoDB | Owen&#39;s Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#x30;&amp;#51;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109; 本文章来自MongoDB官方文档 ☞ 原文链接  概述  软件包 安装MongoDB社区版 运行MongoDB 卸载MongoDB   概述在本教程中,使用.deb包，在LTS">
+<meta name="keywords" content="MongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Ubuntu上安装社区版MongoDB">
+<meta property="og:url" content="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/index.html">
+<meta property="og:site_name" content="Owen&#39;s Blogs">
+<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#x30;&amp;#51;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109; 本文章来自MongoDB官方文档 ☞ 原文链接  概述  软件包 安装MongoDB社区版 运行MongoDB 卸载MongoDB   概述在本教程中,使用.deb包，在LTS">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-24T12:03:06.501Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Ubuntu上安装社区版MongoDB">
+<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#x30;&amp;#51;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109; 本文章来自MongoDB官方文档 ☞ 原文链接  概述  软件包 安装MongoDB社区版 运行MongoDB 卸载MongoDB   概述在本教程中,使用.deb包，在LTS">
+  
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Owen&#39;s Blogs</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天空没有留下鸟的痕迹，但我已飞过</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://owenlittlewhite.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mongodb-install-ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/30/mongodb-install-ubuntu/" class="article-date">
+  <time datetime="2018-08-30T06:13:14.000Z" itemprop="datePublished">2018-08-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在Ubuntu上安装社区版MongoDB
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#51;&#x30;&#x36;&#53;&#57;&#x30;&#51;&#64;&#113;&#113;&#x2e;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#51;&#x30;&#x36;&#53;&#57;&#x30;&#51;&#64;&#113;&#113;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>本文章来自MongoDB官方文档 ☞ <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition-on-ubuntu" target="_blank" rel="noopener">原文链接</a></p>
+<ul>
+<li><a href="#概述">概述</a> </li>
+<li><a href="#软件包">软件包</a></li>
+<li><a href="#安装MongoDB社区版">安装MongoDB社区版</a></li>
+<li><a href="#运行MongoDB">运行MongoDB</a></li>
+<li><a href="#卸载MongoDB">卸载MongoDB</a></li>
+</ul>
+<hr>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在本教程中,使用<code>.deb</code>包，在LTS Ubuntu系统中安装MongoDB社区版。</p>
+<div style="background-color:#fff2d5;margin: 24px 0;width: auto;max-width: 100%;padding: 2px 12px 22px;border-left: 5px solid #ffb618;"><br><p style="color:#ffb618;">重要：</p>由Ubuntu提供的非官方<code>mongodb</code>包<strong>不是</strong>由MongoDB维护的。 您应该始终使用官方的MongoDB <code>mongodb-org</code>软件包，它们与最新的主要和次要MongoDB版本保持同步。</div>
+
+<a id="more"></a>
+<div style="background-color:#edf4e8;margin: 24px 0;width: auto;max-width: 100%;padding: 2px 12px 22px;border-left: 5px solid #6ba442;"><p style="color:#6ba442;">平台支持：</p>MongoDB仅提供64位LTS（长期支持）Ubuntu版本的软件包; 例如，14.04 LTS（trusty）和16.04 LTS（xenial）。 有关更多信息，请参阅<a href="https://docs.mongodb.com/manual/installation/#mongodb-supported-platforms" target="_blank" rel="noopener">支持的平台</a>。<br>这些软件包可以与其他Ubuntu版本一起使用; 但是，它们不受支持。</div>
+
+<div style="background-color:#fae6e5;margin: 24px 0;width: auto;max-width: 100%;padding: 2px 12px 22px;border-left: 5px solid #ed271c;"><p style="color:#ed271c;">适用于IBM POWER SYSTEMS的UBUNTU 16.04所需的包更新</p>由于在Ubuntu 16.04 for POWER上的旧版<code>glibc</code>软件包中存在锁定缺陷错误，因此在运行MongoDB之前必须将<code>glibc</code>软件包升级到至少<code>glibc 2.23-0ubuntu5</code>。 具有旧版本<code>glibc</code>软件包的系统将因随机内存损坏而遇到数据库服务器崩溃和不当行为，因此不适合MongoDB的生产部署</div>
+
+<h2 id="软件包"><a href="#软件包" class="headerlink" title="软件包"></a>软件包</h2><p>MongoDB在自己的存储库中提供官方支持的包。 此存储库包含以下包：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">软件包名称</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mongodb-org</td>
+<td style="text-align:left">一个元数据包，它会自动安装下面列出的四个组件包。</td>
+</tr>
+<tr>
+<td style="text-align:left">mongodb-org-server</td>
+<td style="text-align:left">包含<a href="https://docs.mongodb.com/manual/reference/program/mongod/#bin.mongod" target="_blank" rel="noopener">mongod</a>守护程序以及关联的配置和初始化脚本。</td>
+</tr>
+<tr>
+<td style="text-align:left">mongodb-org-mongos</td>
+<td style="text-align:left">包含<a href="https://docs.mongodb.com/manual/reference/program/mongos/#bin.mongos" target="_blank" rel="noopener">mongos</a>守护进程。</td>
+</tr>
+<tr>
+<td style="text-align:left">mongodb-org-shell</td>
+<td style="text-align:left">包含<a href="https://docs.mongodb.com/manual/reference/program/mongo/#bin.mongo" target="_blank" rel="noopener">mongo</a> shell。</td>
+</tr>
+<tr>
+<td style="text-align:left">mongodb-org-tools</td>
+<td style="text-align:left">包含以下MongoDB工具：<a href="https://docs.mongodb.com/manual/reference/program/mongoimport/#bin.mongoimport" target="_blank" rel="noopener">mongoimport</a>，<a href="https://docs.mongodb.com/manual/reference/program/bsondump/#bin.bsondump" target="_blank" rel="noopener">bsondump</a>，<a href="https://docs.mongodb.com/manual/reference/program/mongodump/#bin.mongodump" target="_blank" rel="noopener">mongodump</a>，<a href="https://docs.mongodb.com/manual/reference/program/mongoexport/#bin.mongoexport" target="_blank" rel="noopener">mongoexport</a>，<a href="https://docs.mongodb.com/manual/reference/program/mongofiles/#bin.mongofiles" target="_blank" rel="noopener">mongofiles</a>，<a href="https://docs.mongodb.com/manual/reference/program/mongorestore/#bin.mongorestore" target="_blank" rel="noopener">mongorestore</a>，<a href="https://docs.mongodb.com/manual/reference/program/mongostat/#bin.mongostat" target="_blank" rel="noopener">mongostat</a>和<a href="https://docs.mongodb.com/manual/reference/program/mongotop/#bin.mongotop" target="_blank" rel="noopener">mongotop</a>。</td>
+</tr>
+</tbody>
+</table>
+<p><code>mongodb-org-server</code>软件包提供了一个初始化脚本，该脚本使用<code>/etc/mongod.conf</code>配置文件启动<a href="https://docs.mongodb.com/manual/reference/program/mongod/#bin.mongod" target="_blank" rel="noopener">mongod</a>。</p>
+<p>有关使用此初始化脚本的详细信息，请参阅<a href="#运行MongoDB">运行MongoDB</a>。</p>
+<p>这些程序包与Ubuntu提供的<code>mongodb</code>，<code>mongodb-server</code>和<code>mongodb-clients</code>程序包冲突。</p>
+<p>默认情况下，软件包提供的默认<code>/etc/mongod.conf</code>配置文件的<code>bind_ip</code>设置为<code>127.0.0.1</code>。 在初始化<a href="https://docs.mongodb.com/manual/reference/glossary/#term-replica-set" target="_blank" rel="noopener">副本集</a>之前，根据您的环境需要修改此设置。</p>
+<h2 id="安装MongoDB社区版"><a href="#安装MongoDB社区版" class="headerlink" title="安装MongoDB社区版"></a>安装MongoDB社区版</h2><div style="background-color:#edf4e8;margin: 24px 0;width: auto;max-width: 100%;padding: 2px 12px 22px;border-left: 5px solid #6ba442;"><p style="color:#6ba442;">注意</p>要安装不同版本的MongoDB，请参阅该版本的文档。 要安装以前的版本，请参阅<a href="https://docs.mongodb.com/v3.6/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="noopener">3.6版</a>的教程。</div>
+
+<p>MongoDB仅提供64位LTS（长期支持）Ubuntu版本的软件包; 例如，14.04 LTS（trusty）和16.04 LTS（xenial）。 有关更多信息，请参阅<a href="https://docs.mongodb.com/manual/installation/#mongodb-supported-platforms" target="_blank" rel="noopener">支持的平台</a>。</p>
+<p>这些软件包可以与其他Ubuntu版本一起使用; 但是，它们不受支持。</p>
+<div style="background-color:#edf4e8;margin: 24px 0;width: auto;max-width: 100%;padding: 2px 12px 22px;border-left: 5px solid #6ba442;"><p style="color:#6ba442;">注意</p>您还可以使用我们完全托管的数据库即服务Atlas在AWS，Azure或GCP上启动MongoDB。 Atlas使您可以配置从免费沙箱环境到全局分片生产集群的任何内容。 <a href="https://www.mongodb.com/cloud/atlas/lp/general?utm_source=install-mongodb-on-ubuntu&amp;utm_campaign=20-docs-in-20-days&amp;utm_medium=docs" target="_blank" rel="noopener">立即设置一个免费集群</a>。</div>
+
+<h3 id="使用-deb安装包（推荐）"><a href="#使用-deb安装包（推荐）" class="headerlink" title="使用.deb安装包（推荐）"></a>使用<code>.deb</code>安装包（推荐）</h3><h4 id="1-导入包管理系统使用的公钥。"><a href="#1-导入包管理系统使用的公钥。" class="headerlink" title="1. 导入包管理系统使用的公钥。"></a>1. 导入包管理系统使用的公钥。</h4><p>Ubuntu软件包管理工具（即<code>dpkg</code>和<code>apt</code>）通过要求分销商使用GPG密钥对软件包进行签名来确保软件包的一致性和真实性。 发出以下命令以导入MongoDB公共GPG密钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4</span><br></pre></td></tr></table></figure>
+<h4 id="2-为MongoDB创建一个列表文件"><a href="#2-为MongoDB创建一个列表文件" class="headerlink" title="2. 为MongoDB创建一个列表文件"></a>2. 为MongoDB创建一个列表文件</h4><p>使用适合您的Ubuntu版本的命令创建<code>/etc/apt/sources.list.d/mongodb-org-4.0.list</code>列表文件：</p>
+<p><strong>Ubuntu 14.04</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/4.0 multiverse"</span> | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</span><br></pre></td></tr></table></figure>
+<p><strong>Ubuntu 16.04</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse"</span> | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</span><br></pre></td></tr></table></figure>
+<p><strong>Ubuntu 18.04</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse"</span> | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</span><br></pre></td></tr></table></figure>
+<h4 id="3-重载本地的安装包数据库"><a href="#3-重载本地的安装包数据库" class="headerlink" title="3. 重载本地的安装包数据库"></a>3. 重载本地的安装包数据库</h4><p>执行下面的命令重载本地的安装包数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h4 id="4-安装MongoDB安装包"><a href="#4-安装MongoDB安装包" class="headerlink" title="4. 安装MongoDB安装包"></a>4. 安装MongoDB安装包</h4><p><strong>安装最新版本的MongoDB</strong></p>
+<p>执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install -y mongodb-org</span><br></pre></td></tr></table></figure>
+<p><strong>安装指定版本的MongoDB</strong></p>
+<p>要安装特定版本，必须单独指定每个组件包以及版本号，如以下示例所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install -y mongodb-org=4.0.2 mongodb-org-server=4.0.2 mongodb-org-shell=4.0.2 mongodb-org-mongos=4.0.2 mongodb-org-tools=4.0.2</span><br></pre></td></tr></table></figure>
+<p>如果只安装<code>mongodb-org = 4.0.2</code>并且不包含组件包，则无论您指定的是哪个版本，都将安装每个MongoDB软件包的最新版本。</p>
+<p><strong>固定MongoDB的特定版本。</strong></p>
+<p>虽然您可以指定任何可用的MongoDB版本，但<code>apt-get</code>会在新版本可用时升级软件包。 为防止意外升级，请将包装固定。 要在当前安装的版本上固定MongoDB的版本，请发出以下命令序列：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"mongodb-org hold"</span> | sudo dpkg --<span class="built_in">set</span>-selections</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"mongodb-org-server hold"</span> | sudo dpkg --<span class="built_in">set</span>-selections</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"mongodb-org-shell hold"</span> | sudo dpkg --<span class="built_in">set</span>-selections</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"mongodb-org-mongos hold"</span> | sudo dpkg --<span class="built_in">set</span>-selections</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"mongodb-org-tools hold"</span> | sudo dpkg --<span class="built_in">set</span>-selections</span><br></pre></td></tr></table></figure>
+<h3 id="使用-tgz-Tarballs"><a href="#使用-tgz-Tarballs" class="headerlink" title="使用 .tgz Tarballs"></a>使用 <code>.tgz</code> Tarballs</h3><h4 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h4><p>MongoDB .tar.gz tarball需要安装以下依赖项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install libcurl3 openssl</span><br></pre></td></tr></table></figure>
+<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p><strong>1. 下载 MongoDB .tar.gz tarball</strong></p>
+<p>从<a href="https://www.mongodb.com/download-center#production" target="_blank" rel="noopener">MongoDB下载中心</a>下载适用于您系统的tarball。</p>
+<p><strong>2. 从下载的存档中解压文件</strong></p>
+<p>例如，从系统shell，您可以使用<code>tar</code>命令解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -zxvf mongodb-linux-*-4.0.2.tgz</span><br></pre></td></tr></table></figure>
+<p><strong>3. 确保二进制文件位于<code>PATH</code>环境变量中列出的目录中。</strong></p>
+<p>MongoDB二进制文件位于tarball的<code>bin/</code>目录中。 你必须：</p>
+<ul>
+<li><p>将这些二进制文件复制到PATH变量中列出的目录中，例如<code>/usr/local/bin</code>;</p>
+</li>
+<li><p>从<code>PATH</code>变量中列出的目录创建到每个二进制文件的符号链接，或</p>
+</li>
+<li><p>修改用户的<code>PATH</code>环境变量以包含此目录。</p>
+</li>
+</ul>
+<p>例如，您可以将以下行添加到shell的初始化脚本中（例如<code>〜/.bashrc</code>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> PATH=&lt;mongodb-install-directory&gt;/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<p>将<code>&lt;mongodb-install-directory&gt;</code>替换为提取的MongoDB存档的路径。</p>
+<h2 id="运行MongoDB"><a href="#运行MongoDB" class="headerlink" title="运行MongoDB"></a>运行MongoDB</h2><p>大多数类Unix操作系统限制会话可能使用的系统资源。 这些限制可能会对MongoDB操作产生负面影响。 有关更多信息，请参见<a href="https://docs.mongodb.com/manual/reference/ulimit/" target="_blank" rel="noopener">UNIX ulimit设置</a>。</p>
+<p>默认情况下，MongoDB实例将其数据文件存储在<code>/var/lib/mongodb</code>中，将其日志文件存储在<code>/var/log/mongodb</code>中，并使用<code>mongodb</code>用户帐户运行。 您可以在<code>/etc/mongod.conf</code>中指定备用日志和数据文件目录。 有关其他信息，请参阅<a href="https://docs.mongodb.com/manual/reference/configuration-options/#systemLog.path" target="_blank" rel="noopener">systemLog.path</a>和<a href="https://docs.mongodb.com/manual/reference/configuration-options/#storage.dbPath" target="_blank" rel="noopener">storage.dbPath</a>。</p>
+<p>如果更改运行MongoDB进程的用户，则必须修改<code>/var/lib/mongodb</code>和<code>/var/log/mongodb</code>目录的访问控制权限，以授予此用户访问这些目录的权限。</p>
+<p><strong>1. 启动MongoDB</strong></p>
+<p>执行下列命令启动<a href="https://docs.mongodb.com/manual/reference/program/mongod/#bin.mongod" target="_blank" rel="noopener">mongod</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo service mongod start</span><br></pre></td></tr></table></figure>
+<p><strong>2. 确保MongoDB成功启动</strong></p>
+<p>通过检查/var/log/mongodb/mongod.log中日志文件的内容以查找有无以下内容，验证mongod进程是否已成功启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[initandlisten] waiting for connections on port 27017</span><br></pre></td></tr></table></figure>
+<p><code>&lt;port&gt;</code>是mongod侦听的端口。 如果您修改了<code>/etc/mongod.conf</code>配置文件中的<a href="https://docs.mongodb.com/manual/reference/configuration-options/#net.port" target="_blank" rel="noopener"><code>net.port</code></a>设置，则端口可能会有所不同。</p>
+<p>如果修改了<a href="https://docs.mongodb.com/manual/reference/configuration-options/#systemLog.path" target="_blank" rel="noopener"><code>systemLog.path</code></a>配置文件选项，请在指定给该设置的位置查找日志文件。</p>
+<p>您可能会在mongod输出中看到非严重警告。 只要您看到上面显示的日志行，就可以在初始评估MongoDB时安全地忽略这些警告。</p>
+<p><strong>3. 停止MongoDB</strong></p>
+<p>通过输入下面的命令停止<code>mongod</code>进程:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo service mongod stop</span><br></pre></td></tr></table></figure>
+<p><strong>4. 重启MongoDB</strong></p>
+<p>执行下面命令重启<code>mongod</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo service mongod restart</span><br></pre></td></tr></table></figure>
+<p><strong>5. 开始使用MongoDB</strong></p>
+<p>在与<code>mongod</code>相同的主机上启动<a href="https://docs.mongodb.com/manual/reference/program/mongo/#bin.mongo" target="_blank" rel="noopener">mongo</a> shell。 使用<code>--host</code>命令行选项指定本地主机地址（在本例中为<code>127.0.0.1</code>）和<code>mongod</code>侦听的端口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mongo --host 127.0.0.1:27017</span><br></pre></td></tr></table></figure>
+<p>稍后，要停止MongoDB，请在运行mongod实例的终端中按<code>Control + C</code>.</p>
+<h2 id="卸载MongoDB"><a href="#卸载MongoDB" class="headerlink" title="卸载MongoDB"></a>卸载MongoDB</h2><p>要从系统中完全删除MongoDB，您必须删除MongoDB应用程序本身，配置文件以及包含数据和日志的任何目录。 以下部分将指导您完成必要的步骤。</p>
+<div style="background-color:#fae6e5;margin: 24px 0;width: auto;max-width: 100%;padding: 2px 12px 22px;border-left: 5px solid #ed271c;"><p style="color:#ed271c;">警告</p>此过程将完全删除MongoDB，其配置和所有数据库。 此过程不可逆，因此请确保在继续之前备份所有配置和数据。</div>
+
+<p><strong>1. 停止MongoDB</strong></p>
+<p>执行下面的命令停止<code>mongod</code>进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo service mongod stop</span><br></pre></td></tr></table></figure>
+<p><strong>2. 移除安装包</strong></p>
+<p>移除之前所有安装过的包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get purge mongodb-org*</span><br></pre></td></tr></table></figure>
+<p><strong>3. 移除数据文件</strong></p>
+<p>移除MongoDB数据库和日志文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -r /var/<span class="built_in">log</span>/mongodb</span><br><span class="line">$ sudo rm -r /var/lib/mongodb</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/" data-id="cjmx6eadc0004cwtza8tm2wmj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/19/config-cloud/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          重置完阿里云要做的步骤(Ubuntu16.04)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/22/mysql-select2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL中取得股票最近几日行情举一反三</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/">Tutorial</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/Tool/">Tool</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 15px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/05/nodejs-require/">浅谈node.js模块引入机制</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/config-cloud/">重置完阿里云要做的步骤(Ubuntu16.04)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/30/mongodb-install-ubuntu/">在Ubuntu上安装社区版MongoDB</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/22/mysql-select2/">MySQL中取得股票最近几日行情举一反三</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/21/mysql-select/">MySQL中如何取得不同股票最近几日的日行情</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Owen Zhao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

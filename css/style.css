@@ -415,8 +415,8 @@ body {
   cursor: pointer;
 }
 .main-nav-link {
-  font-weight: 300;
   letter-spacing: 1px;
+  color: #fff;
 }
 @media screen and (max-width: 479px) {
   .main-nav-link {
@@ -858,6 +858,7 @@ a.article-title:hover {
 }
 .article-share-twitter,
 .article-share-facebook,
+.article-share-weibo,
 .article-share-pinterest,
 .article-share-google {
   width: 50px;
@@ -870,6 +871,7 @@ a.article-title:hover {
 }
 .article-share-twitter:before,
 .article-share-facebook:before,
+.article-share-weibo:before,
 .article-share-pinterest:before,
 .article-share-google:before {
   font-size: 20px;
@@ -885,6 +887,7 @@ a.article-title:hover {
 }
 .article-share-twitter:hover,
 .article-share-facebook:hover,
+.article-share-weibo:hover,
 .article-share-pinterest:hover,
 .article-share-google:hover {
   color: #fff;
@@ -900,6 +903,13 @@ a.article-title:hover {
   content: "\f09a";
 }
 .article-share-facebook:hover {
+  background: #3b5998;
+  text-shadow: 0 1px #2f477a;
+}
+.article-share-weibo:before {
+  content: "\f18a";
+}
+.article-share-weibo:hover {
   background: #3b5998;
   text-shadow: 0 1px #2f477a;
 }

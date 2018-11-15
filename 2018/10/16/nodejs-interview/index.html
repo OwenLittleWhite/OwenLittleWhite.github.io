@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Node.js 面试总结 | Owen&#39;s Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#54;&amp;#53;&amp;#x39;&amp;#48;&amp;#51;&amp;#64;&amp;#x71;&amp;#x71;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109; 笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等公司，及">
+<meta name="keywords" content="node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 面试总结">
+<meta property="og:url" content="https://owenlittlewhite.github.io/2018/10/16/nodejs-interview/index.html">
+<meta property="og:site_name" content="Owen&#39;s Blogs">
+<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#54;&amp;#53;&amp;#x39;&amp;#48;&amp;#51;&amp;#64;&amp;#x71;&amp;#x71;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109; 笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等公司，及">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-15T14:04:52.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js 面试总结">
+<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#54;&amp;#53;&amp;#x39;&amp;#48;&amp;#51;&amp;#64;&amp;#x71;&amp;#x71;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109; 笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等公司，及">
+  
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-8674851637182043",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Owen&#39;s Blogs</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">天空没有留下鸟的痕迹，但我已飞过</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://owenlittlewhite.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-nodejs-interview" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/16/nodejs-interview/" class="article-date">
+  <time datetime="2018-10-16T02:23:19.000Z" itemprop="datePublished">2018-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Program/">Program</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Node.js 面试总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#51;&#x30;&#54;&#53;&#x39;&#48;&#51;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#51;&#x30;&#54;&#53;&#x39;&#48;&#51;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#109;</a></p>
+<p>笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等公司，及20~50的创业公司。</p>
+<p>以下是一些对问到的问题的小结，希望对也要参加面试的朋友有些帮助，也欢迎补充。</p>
+<p>文档的内容分为以下几部分：</p>
+<ul>
+<li><a href="#技术类问题">技术类问题</a></li>
+<li><a href="#人事问题">人事问题</a></li>
+<li><a href="#最后">最后</a></li>
+</ul>
+<hr>
+<h2 id="技术类问题"><a href="#技术类问题" class="headerlink" title="技术类问题"></a>技术类问题</h2><p>主要分为JavaScript语言层面的、网络及规范、数据库、缓存、消息队列、开发流程等，有些问题相互交叉、水乳相融可能涉及到多项知识<br><a id="more"></a></p>
+<h3 id="JavaScript、Node-js"><a href="#JavaScript、Node-js" class="headerlink" title="JavaScript、Node.js"></a>JavaScript、Node.js</h3><ul>
+<li>有没有用过<code>apply()</code>, <code>bind()</code>, <code>call()</code>这些方法，他们之间的区别</li>
+<li><code>Promise</code>的几种状态、如何实现的、什么情况下<code>catch</code>不到错误</li>
+<li>有没有用过<code>async</code>、<code>await</code></li>
+<li>流程控制库<code>async</code>，自己在项目中常用到哪些方法；什么情况下会选择<code>async</code>库，什么情况下选择<code>Promise</code>；<code>async</code>库是如何实现的（要阅读源码）</li>
+<li><code>Node.js</code>单线程、其应用场景，如何实现高并发，讲讲异步I/O、事件循环以及其优先级</li>
+<li><code>Node.js</code>后台影响性能的瓶颈，如何避免，如何实现扩展</li>
+<li>常用到哪些库（原生模块、第三方库）、模块加载的机制</li>
+<li>常用到哪些框架，<code>express</code>、<code>koa</code>的异同，选择用哪个框架的标准是什么</li>
+</ul>
+<h3 id="网络及规范"><a href="#网络及规范" class="headerlink" title="网络及规范"></a>网络及规范</h3><ul>
+<li>简要说说http协议</li>
+<li>tcp建立连接、释放连接的过程</li>
+<li>说说RestfulAPI的规范</li>
+<li>怎样保证代码质量（代码检查、单元测试、持续集成）</li>
+<li>用到哪些设计模式</li>
+</ul>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
+<li>用过哪些数据库（MySQL、MongoDB、Redis）</li>
+<li>MySQL查询优化、索引、索引的原理</li>
+<li>MySQL库设计一个简单的论坛系统，画出用户表、帖子表、评论表的er图， 当用户量很大时，如何优化，缓存最多存一万条数据时如何优化</li>
+<li>MySQL的配置文件改过哪些参数</li>
+<li>MySQL及MongoDB如何选择，选择的标准是什么</li>
+<li>MongoDB的聚合函数，用到过哪些参数</li>
+<li>MongoDB的几种索引，数据量特别大时的分片</li>
+<li>数据库的灾备（MySQL、MongoDB）</li>
+</ul>
+<h3 id="缓存-Redis"><a href="#缓存-Redis" class="headerlink" title="缓存(Redis)"></a>缓存(Redis)</h3><ul>
+<li>Redis的几种数据类型(string、set、list、sorted set、hash等)</li>
+<li>Redis主要用到哪些API</li>
+<li>缓存在项目中的具体应用（主要针对项目经验来谈）</li>
+<li>Redis如何拓展（集群）</li>
+<li>缓存更新的问题，当大量缓存同时过期时如何处理，缓存雪崩的问题</li>
+<li>Redis的持久化</li>
+<li>Redis为什么这么快、单线程</li>
+</ul>
+<h3 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h3><ul>
+<li>RabbitMQ的几种应用场景</li>
+<li>RabbitMQ交换机有几种类型，*号与#号的区别，举个例子</li>
+<li>Redis的订阅发布</li>
+</ul>
+<h3 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h3><ul>
+<li>用到的测试框架（mocha）</li>
+<li>代码覆盖率</li>
+<li>bug缺陷管理（JIRA）</li>
+<li>版本控制（git、gitlab）</li>
+<li>持续集成</li>
+<li>敏捷开发</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>公司技术方面的人员分配（前端、后台、运维、DBA、原生）</li>
+<li>你认为你目前的团队或公司存在的问题（这是个坑，接下一个）</li>
+<li>为什么没有试图去改变</li>
+<li>目前你们公司4个node开发的，你认为你的水平在这四个人中排第几，依据是什么（这个问题好蛋疼）</li>
+</ul>
+<h2 id="人事问题"><a href="#人事问题" class="headerlink" title="人事问题"></a>人事问题</h2><p>除了技术面试，人事的面试也是很重要，有些问题也不一定是人事问，可能是经理、或者老板问。</p>
+<ul>
+<li>对我们公司有什么了解（虽然是海量投简历…但是收到面试的通知，还是应该对这家公司进行一些调查，查一下主营业务，看看其他人的面试评价，也可以评判下自己适合不适合）</li>
+<li>上家公司为什么离职</li>
+<li>期望进入什么样的公司（这个问题最好提离职时就能想好，不只是应付面试，更多的为了自己）</li>
+<li>未来的职业规划（同上，要认真考虑，可以先有个短期的）</li>
+<li>目前的薪资（有些公司可能需要提供银行流水，所以水分不要太大）</li>
+<li>期望的薪资（直接给个确切的数吧）</li>
+<li>平常喜欢做什么</li>
+<li>能不能接受加班、最晚能加班到几点（这个问题感觉好虚）</li>
+<li>什么时候到岗（巴不得第二天就去报道的，要考虑清楚，一般都会等一个月）</li>
+</ul>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>换工作前还是要弄明白自己想要什么，期望在下家可以收获什么，跳槽虽然能涨工资，但是不要过于频繁。</p>
+<p>找工作真的是一件很辛苦的事情，简历被拒、笔试没过都是很令人受打击的，等待面试结果的过程也很受煎熬。但确实是一个学习，了解自身不足的契机。</p>
+<p>希望这篇文章能给准备面试的你有一些帮助。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2018/10/16/nodejs-interview/" data-title="Node.js 面试总结" data-id="cjoio3mlz000l9ktzvl1f8rfy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/07/nodejs-event-loop/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Node.js 事件循环、定时器和process.nextTick()</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Program/">Program</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Translation/">Translation</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/">Tutorial</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Tutorial/Tool/">Tool</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/">regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/">tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/tags/rabbitmq/" style="font-size: 15px;">rabbitmq</a> <a href="/tags/regex/" style="font-size: 10px;">regex</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/16/nodejs-interview/">Node.js 面试总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/07/nodejs-event-loop/">Node.js 事件循环、定时器和process.nextTick()</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/05/nodejs-require/">浅谈node.js模块引入机制</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/config-cloud/">重置完阿里云要做的步骤(Ubuntu16.04)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/30/mongodb-install-ubuntu/">在Ubuntu上安装社区版MongoDB</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Owen Zhao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

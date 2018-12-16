@@ -7,18 +7,18 @@
   
   <title>Node.js 事件循环、定时器和process.nextTick() | Owen&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#57;&amp;#x30;&amp;#51;&amp;#64;&amp;#113;&amp;#x71;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d; 本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核都">
+  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x39;&amp;#x30;&amp;#51;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109; 本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核">
 <meta name="keywords" content="node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js 事件循环、定时器和process.nextTick()">
 <meta property="og:url" content="https://owenlittlewhite.github.io/2018/10/07/nodejs-event-loop/index.html">
 <meta property="og:site_name" content="Owen&#39;s Blogs">
-<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#57;&amp;#x30;&amp;#51;&amp;#64;&amp;#113;&amp;#x71;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d; 本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核都">
+<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x39;&amp;#x30;&amp;#51;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109; 本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-11-15T14:04:52.591Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js 事件循环、定时器和process.nextTick()">
-<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#57;&amp;#x30;&amp;#51;&amp;#64;&amp;#113;&amp;#x71;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d; 本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核都">
+<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x39;&amp;#x30;&amp;#51;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109; 本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核">
   
   
     <link rel="icon" href="/images/favicon.ico">
@@ -33,6 +33,17 @@
     google_ad_client: "ca-pub-8674851637182043",
     enable_page_level_ads: true
   });
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 首页 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-8674851637182043"
+     data-ad-slot="9931201893"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 </head>
 
@@ -100,7 +111,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#51;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#113;&#x71;&#46;&#x63;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x32;&#53;&#51;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#113;&#x71;&#46;&#x63;&#x6f;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#51;&#x30;&#x36;&#x35;&#x39;&#x30;&#51;&#64;&#113;&#113;&#46;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#51;&#x30;&#x36;&#x35;&#x39;&#x30;&#51;&#64;&#113;&#113;&#46;&#x63;&#x6f;&#109;</a></p>
 <p>本文为译文，<a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener">英文原文</a></p>
 <h2 id="什么是事件循环"><a href="#什么是事件循环" class="headerlink" title="什么是事件循环"></a>什么是事件循环</h2><p>尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。</p>
 <p>由于现代大多数内核都是多线程的，因此它们可以处理在后台执行的多个操作。 当其中一个操作完成时，内核会告诉Node.js，以便可以将相应的回调添加到 <strong>轮询队列</strong> 中以最终执行。 我们将在本主题后面进一步详细解释。</p>
@@ -198,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/10/07/nodejs-event-loop/" data-title="Node.js 事件循环、定时器和process.nextTick()" data-id="cjoio3mlw000j9ktzhcvmq2g7" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/10/07/nodejs-event-loop/" data-title="Node.js 事件循环、定时器和process.nextTick()" data-id="cjpqeqrhz0009t8tzcuv6tgcw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>

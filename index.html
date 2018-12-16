@@ -33,6 +33,17 @@
     enable_page_level_ads: true
   });
 </script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 首页 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-8674851637182043"
+     data-ad-slot="9931201893"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 </head>
 
 <body>
@@ -101,7 +112,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#51;&#x30;&#54;&#53;&#x39;&#48;&#51;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#51;&#x30;&#54;&#53;&#x39;&#48;&#51;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#109;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#x33;&#x30;&#54;&#53;&#x39;&#x30;&#x33;&#x40;&#113;&#113;&#x2e;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#x33;&#x30;&#54;&#53;&#x39;&#x30;&#x33;&#x40;&#113;&#113;&#x2e;&#x63;&#111;&#109;</a></p>
 <p>笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等公司，及20~50的创业公司。</p>
 <p>以下是一些对问到的问题的小结，希望对也要参加面试的朋友有些帮助，也欢迎补充。</p>
 <p>文档的内容分为以下几部分：</p>
@@ -120,7 +131,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/10/16/nodejs-interview/" data-title="Node.js 面试总结" data-id="cjoio3mlz000l9ktzvl1f8rfy" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/10/16/nodejs-interview/" data-title="Node.js 面试总结" data-id="cjpqeqrj0000jt8tzh0rue9i0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
@@ -159,7 +170,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#51;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#113;&#x71;&#46;&#x63;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x32;&#53;&#51;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#113;&#x71;&#46;&#x63;&#x6f;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#51;&#x30;&#x36;&#x35;&#x39;&#x30;&#51;&#64;&#113;&#113;&#46;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#51;&#x30;&#x36;&#x35;&#x39;&#x30;&#51;&#64;&#113;&#113;&#46;&#x63;&#x6f;&#109;</a></p>
 <p>本文为译文，<a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener">英文原文</a></p>
 <h2 id="什么是事件循环"><a href="#什么是事件循环" class="headerlink" title="什么是事件循环"></a>什么是事件循环</h2><p>尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。</p>
 <p>由于现代大多数内核都是多线程的，因此它们可以处理在后台执行的多个操作。 当其中一个操作完成时，内核会告诉Node.js，以便可以将相应的回调添加到 <strong>轮询队列</strong> 中以最终执行。 我们将在本主题后面进一步详细解释。</p>
@@ -172,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/10/07/nodejs-event-loop/" data-title="Node.js 事件循环、定时器和process.nextTick()" data-id="cjoio3mlw000j9ktzhcvmq2g7" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/10/07/nodejs-event-loop/" data-title="Node.js 事件循环、定时器和process.nextTick()" data-id="cjpqeqrhz0009t8tzcuv6tgcw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
@@ -207,7 +218,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#x33;&#48;&#x36;&#x35;&#57;&#x30;&#x33;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#x33;&#48;&#x36;&#x35;&#57;&#x30;&#x33;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#109;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#x33;&#x30;&#x36;&#53;&#x39;&#48;&#51;&#64;&#113;&#113;&#46;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#x32;&#53;&#x33;&#x30;&#x36;&#53;&#x39;&#48;&#51;&#64;&#113;&#113;&#46;&#99;&#111;&#x6d;</a></p>
 <p>之前笔者对nodejs中的模块是如何引入的也是一头雾水，读了一本《深入浅出nodejs》，加上自己工作时的经验和理解，有如下的总结，欢迎同仁指教~</p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>CommonJS的模块规范指出模块主要分为三部分：模块引用、模块定义、模块标识</p>
 <h3 id="模块引用"><a href="#模块引用" class="headerlink" title="模块引用"></a>模块引用</h3><p>模块引用的示例代码如下:</p>
@@ -223,7 +234,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/10/05/nodejs-require/" data-title="浅谈node.js模块引入机制" data-id="cjoio3mm3000o9ktzpnentbfp" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/10/05/nodejs-require/" data-title="浅谈node.js模块引入机制" data-id="cjpqeqriu000ht8tzdz59ir4y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
@@ -258,7 +269,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#x33;&#48;&#x36;&#x35;&#57;&#x30;&#51;&#x40;&#113;&#113;&#46;&#x63;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x32;&#53;&#x33;&#48;&#x36;&#x35;&#57;&#x30;&#51;&#x40;&#113;&#113;&#46;&#x63;&#x6f;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#x35;&#x33;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#x32;&#x35;&#x33;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#x6d;</a></p>
 <ul>
 <li><p><a href="#增加新用户">增加新用户</a></p>
 </li>
@@ -292,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/09/19/config-cloud/" data-title="重置完阿里云要做的步骤(Ubuntu16.04)" data-id="cjoio3mle000a9ktzd0io9ax4" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/09/19/config-cloud/" data-title="重置完阿里云要做的步骤(Ubuntu16.04)" data-id="cjpqeqrgt0002t8tzsq3h925g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -325,7 +336,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#x30;&#54;&#x35;&#57;&#48;&#51;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#x30;&#54;&#x35;&#57;&#48;&#51;&#64;&#113;&#113;&#46;&#99;&#111;&#109;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#x33;&#48;&#54;&#x35;&#57;&#x30;&#x33;&#64;&#113;&#x71;&#x2e;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#50;&#53;&#x33;&#48;&#54;&#x35;&#57;&#x30;&#x33;&#64;&#113;&#x71;&#x2e;&#99;&#x6f;&#109;</a></p>
 <p>本文章来自MongoDB官方文档 ☞ <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition-on-ubuntu" target="_blank" rel="noopener">原文链接</a></p>
 <ul>
 <li><a href="#概述">概述</a> </li>
@@ -345,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/" data-title="在Ubuntu上安装社区版MongoDB" data-id="cjoio3mlp000e9ktzuckt2qt5" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/" data-title="在Ubuntu上安装社区版MongoDB" data-id="cjpqeqric000ct8tz9j080y31" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li></ul>
@@ -380,7 +391,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#51;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#50;&#53;&#51;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#x35;&#x33;&#48;&#x36;&#53;&#57;&#48;&#51;&#64;&#113;&#x71;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#x32;&#x35;&#x33;&#48;&#x36;&#53;&#57;&#48;&#51;&#64;&#113;&#x71;&#46;&#99;&#x6f;&#109;</a></p>
 <p>通过在SQL语句中定义变量的方法，我们可以按照顺序得到数据的排名，还可以做一些类似于错位相减的操作。</p>
 <p>本篇博文还是基于上一篇<a href="/2018/08/21/mysql-select">博文</a>的数据</p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>得到股票每日的涨幅：（当日的收盘价-上个交易日的收盘价）/上个交易日的收盘价</p>
@@ -393,7 +404,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/22/mysql-select2/" data-title="MySQL中取得股票最近几日行情举一反三" data-id="cjoio3mlu000h9ktzk2d9jaha" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/22/mysql-select2/" data-title="MySQL中取得股票最近几日行情举一反三" data-id="cjpqeqrhp0007t8tze6bwccqi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -428,7 +439,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#x35;&#51;&#x30;&#x36;&#53;&#57;&#48;&#51;&#x40;&#x71;&#113;&#46;&#x63;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x32;&#x35;&#51;&#x30;&#x36;&#53;&#57;&#48;&#51;&#x40;&#x71;&#113;&#46;&#x63;&#x6f;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#x33;&#48;&#x36;&#x35;&#57;&#48;&#51;&#64;&#113;&#x71;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#50;&#53;&#x33;&#48;&#x36;&#x35;&#57;&#48;&#51;&#64;&#113;&#x71;&#46;&#99;&#111;&#109;</a></p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>取得每只股票最近五天的日行情<br>由于每只股票可能停牌，停牌日期也不确定，所以每只股票的交易日都有可能是不同的。</p>
 <h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>存在MySQL中的数据如下：(数据不是真实数据)<br>表名为: <code>day_quotes</code><br>
         
@@ -439,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/21/mysql-select/" data-title="MySQL中如何取得不同股票最近几日的日行情" data-id="cjoio3mlr000f9ktzus7ts6w9" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/21/mysql-select/" data-title="MySQL中如何取得不同股票最近几日的日行情" data-id="cjpqeqrh10003t8tze5ttk6by" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -474,7 +485,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#x30;&#54;&#53;&#57;&#x30;&#51;&#64;&#113;&#x71;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#x30;&#54;&#53;&#57;&#x30;&#51;&#64;&#113;&#x71;&#x2e;&#x63;&#x6f;&#109;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#51;&#x40;&#x71;&#x71;&#46;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#50;&#53;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#51;&#x40;&#x71;&#x71;&#46;&#x63;&#111;&#109;</a></p>
 <h2 id="RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连"><a href="#RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连" class="headerlink" title="RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连"></a><code>RabbitMQ</code> Node.js 客户端(<a href="https://www.npmjs.com/package/amqplib" target="_blank" rel="noopener">AMQP 0-9-1  V0.5.2</a>)自动重连</h2><h3 id="重启策略"><a href="#重启策略" class="headerlink" title="重启策略"></a>重启策略</h3><p>开始找解决方案：</p>
 <ol>
 <li><p>通过查看AMQP的源码，发现没有reconnect的选项</p>
@@ -490,7 +501,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-title="rabbitmq客户端自动重连" data-id="cjoio3mm6000r9ktz94octn0x" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-title="rabbitmq客户端自动重连" data-id="cjpqeqrkc001dt8tzvehwqk7r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>
@@ -551,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/07/20/Regex/" data-title="正则表达式" data-id="cjoio3mlb00099ktzy3jseadr" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/07/20/Regex/" data-title="正则表达式" data-id="cjpqeqrh40004t8tzivztbgit" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regex/">regex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tool/">tool</a></li></ul>
@@ -603,7 +614,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/07/18/rabbitmq-zh-tutorial/" data-title="rabbitmq中文教程(基于Node.js客户端)" data-id="cjoio3mm9000t9ktzgiiksybs" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/07/18/rabbitmq-zh-tutorial/" data-title="rabbitmq中文教程(基于Node.js客户端)" data-id="cjpqeqrhj0006t8tz75orn7xd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>

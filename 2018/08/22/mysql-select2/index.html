@@ -7,18 +7,18 @@
   
   <title>MySQL中取得股票最近几日行情举一反三 | Owen&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#57;&amp;#x30;&amp;#51;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d; 通过在SQL语句中定义变量的方法，我们可以按照顺序得到数据的排名，还可以做一些类似于错位相减的操作。 本篇博文还是基于上一篇博文的数据 问题得到股票每日的涨幅：（当日的收盘价-上">
+  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#48;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#51;&amp;#64;&amp;#113;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 通过在SQL语句中定义变量的方法，我们可以按照顺序得到数据的排名，还可以做一些类似于错位相减的操作。 本篇博文还是基于上一篇博文的数据 问题得到股票每日的涨幅：（当日的收盘价-上个交">
 <meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL中取得股票最近几日行情举一反三">
 <meta property="og:url" content="https://owenlittlewhite.github.io/2018/08/22/mysql-select2/index.html">
 <meta property="og:site_name" content="Owen&#39;s Blogs">
-<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#57;&amp;#x30;&amp;#51;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d; 通过在SQL语句中定义变量的方法，我们可以按照顺序得到数据的排名，还可以做一些类似于错位相减的操作。 本篇博文还是基于上一篇博文的数据 问题得到股票每日的涨幅：（当日的收盘价-上">
+<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#48;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#51;&amp;#64;&amp;#113;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 通过在SQL语句中定义变量的方法，我们可以按照顺序得到数据的排名，还可以做一些类似于错位相减的操作。 本篇博文还是基于上一篇博文的数据 问题得到股票每日的涨幅：（当日的收盘价-上个交">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-09-24T12:03:06.512Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL中取得股票最近几日行情举一反三">
-<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#53;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#57;&amp;#x30;&amp;#51;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d; 通过在SQL语句中定义变量的方法，我们可以按照顺序得到数据的排名，还可以做一些类似于错位相减的操作。 本篇博文还是基于上一篇博文的数据 问题得到股票每日的涨幅：（当日的收盘价-上">
+<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#48;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#51;&amp;#64;&amp;#113;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 通过在SQL语句中定义变量的方法，我们可以按照顺序得到数据的排名，还可以做一些类似于错位相减的操作。 本篇博文还是基于上一篇博文的数据 问题得到股票每日的涨幅：（当日的收盘价-上个交">
   
   
     <link rel="icon" href="/images/favicon.ico">
@@ -33,6 +33,17 @@
     google_ad_client: "ca-pub-8674851637182043",
     enable_page_level_ads: true
   });
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 首页 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-8674851637182043"
+     data-ad-slot="9931201893"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 </head>
 
@@ -96,7 +107,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#51;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#50;&#53;&#51;&#x30;&#x36;&#x35;&#57;&#x30;&#51;&#64;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#x35;&#x33;&#48;&#x36;&#53;&#57;&#48;&#51;&#64;&#113;&#x71;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#x32;&#x35;&#x33;&#48;&#x36;&#53;&#57;&#48;&#51;&#64;&#113;&#x71;&#46;&#99;&#x6f;&#109;</a></p>
 <p>通过在SQL语句中定义变量的方法，我们可以按照顺序得到数据的排名，还可以做一些类似于错位相减的操作。</p>
 <p>本篇博文还是基于上一篇<a href="/2018/08/21/mysql-select">博文</a>的数据</p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>得到股票每日的涨幅：（当日的收盘价-上个交易日的收盘价）/上个交易日的收盘价</p>
@@ -108,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/22/mysql-select2/" data-title="MySQL中取得股票最近几日行情举一反三" data-id="cjoio3mlu000h9ktzk2d9jaha" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/22/mysql-select2/" data-title="MySQL中取得股票最近几日行情举一反三" data-id="cjpqeqrhp0007t8tze6bwccqi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>

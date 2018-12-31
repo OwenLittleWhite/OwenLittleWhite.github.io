@@ -7,18 +7,18 @@
   
   <title>Node.js 面试总结 | Owen&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#x33;&amp;#x30;&amp;#54;&amp;#53;&amp;#x39;&amp;#x30;&amp;#x33;&amp;#x40;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109; 笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等">
+  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#x33;&amp;#x40;&amp;#113;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等公司，">
 <meta name="keywords" content="node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js 面试总结">
 <meta property="og:url" content="https://owenlittlewhite.github.io/2018/10/16/nodejs-interview/index.html">
 <meta property="og:site_name" content="Owen&#39;s Blogs">
-<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#x33;&amp;#x30;&amp;#54;&amp;#53;&amp;#x39;&amp;#x30;&amp;#x33;&amp;#x40;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109; 笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等">
+<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#x33;&amp;#x40;&amp;#113;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等公司，">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2018-11-15T14:04:52.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js 面试总结">
-<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#x33;&amp;#x30;&amp;#54;&amp;#53;&amp;#x39;&amp;#x30;&amp;#x33;&amp;#x40;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109; 笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等">
+<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#53;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#48;&amp;#x33;&amp;#x40;&amp;#113;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等公司，">
   
   
     <link rel="icon" href="/images/favicon.ico">
@@ -27,16 +27,15 @@
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   <link rel="stylesheet" href="/css/style.css">
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-8674851637182043",
-    enable_page_level_ads: true
-  });
-</script>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8674851637182043",
+          enable_page_level_ads: true
+     });
+</script> -->
 <!-- 首页 -->
-<ins class="adsbygoogle"
+<!-- <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-8674851637182043"
      data-ad-slot="9931201893"
@@ -44,6 +43,10 @@
      data-full-width-responsive="true"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
+</script> -->
+
+<script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 </script>
 </head>
 
@@ -84,6 +87,7 @@
     </div>
   </div>
 </header>
+
       <div class="outer">
         <section id="main"><article id="post-nodejs-interview" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -108,10 +112,13 @@
   
 
       </header>
+      <amp-auto-ads type="adsense"
+              data-ad-client="ca-pub-8674851637182043">
+      </amp-auto-ads>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#x33;&#x30;&#54;&#53;&#x39;&#x30;&#x33;&#x40;&#113;&#113;&#x2e;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#x33;&#x30;&#54;&#53;&#x39;&#x30;&#x33;&#x40;&#113;&#113;&#x2e;&#x63;&#111;&#109;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#x33;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#x32;&#53;&#x33;&#x30;&#x36;&#53;&#57;&#48;&#x33;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#109;</a></p>
 <p>笔者前段时间（2018.09-2018.10）参加面试，地点深圳，面试的岗位是NodeJS后台开发，工作年限是1~3年，面过的公司有1000人以上的大公司，一百人左右的中等公司，及20~50的创业公司。</p>
 <p>以下是一些对问到的问题的小结，希望对也要参加面试的朋友有些帮助，也欢迎补充。</p>
 <p>文档的内容分为以下几部分：</p>
@@ -195,8 +202,11 @@
 
       
     </div>
+    <amp-auto-ads type="adsense"
+              data-ad-client="ca-pub-8674851637182043">
+    </amp-auto-ads>
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/10/16/nodejs-interview/" data-title="Node.js 面试总结" data-id="cjpqeqrj0000jt8tzh0rue9i0" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/10/16/nodejs-interview/" data-title="Node.js 面试总结" data-id="cjqa6lu0y00100wtz59cvpycx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
@@ -293,7 +303,11 @@
   </div>
 
   
+  <amp-auto-ads type="adsense"
+              data-ad-client="ca-pub-8674851637182043">
+  </amp-auto-ads>
 </aside>
+
         
       </div>
       <footer id="footer">

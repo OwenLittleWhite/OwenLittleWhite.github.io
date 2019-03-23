@@ -7,18 +7,18 @@
   
   <title>在Ubuntu上安装社区版MongoDB | Owen&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#x30;&amp;#51;&amp;#x40;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d; 本文章来自MongoDB官方文档 ☞ 原文链接  概述  软件包 安装MongoDB社区版 运行MongoDB 卸载MongoDB   概述在本教程中,使用.deb包，在L">
+  <meta name="description" content="本文章来自MongoDB官方文档 ☞ 原文链接  概述  软件包 安装MongoDB社区版 运行MongoDB 卸载MongoDB   概述在本教程中,使用.deb包，在LTS Ubuntu系统中安装MongoDB社区版。 重要：由Ubuntu提供的非官方mongodb包不是由MongoDB维护的。 您应该始终使用官方的MongoDB mongodb-org软件包，它们与最新的主要和次要Mong">
 <meta name="keywords" content="MongoDB">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Ubuntu上安装社区版MongoDB">
 <meta property="og:url" content="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/index.html">
 <meta property="og:site_name" content="Owen&#39;s Blogs">
-<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#x30;&amp;#51;&amp;#x40;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d; 本文章来自MongoDB官方文档 ☞ 原文链接  概述  软件包 安装MongoDB社区版 运行MongoDB 卸载MongoDB   概述在本教程中,使用.deb包，在L">
+<meta property="og:description" content="本文章来自MongoDB官方文档 ☞ 原文链接  概述  软件包 安装MongoDB社区版 运行MongoDB 卸载MongoDB   概述在本教程中,使用.deb包，在LTS Ubuntu系统中安装MongoDB社区版。 重要：由Ubuntu提供的非官方mongodb包不是由MongoDB维护的。 您应该始终使用官方的MongoDB mongodb-org软件包，它们与最新的主要和次要Mong">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-24T12:03:06.501Z">
+<meta property="og:updated_time" content="2019-03-23T04:56:11.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Ubuntu上安装社区版MongoDB">
-<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#x33;&amp;#x30;&amp;#x36;&amp;#53;&amp;#57;&amp;#x30;&amp;#51;&amp;#x40;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d; 本文章来自MongoDB官方文档 ☞ 原文链接  概述  软件包 安装MongoDB社区版 运行MongoDB 卸载MongoDB   概述在本教程中,使用.deb包，在L">
+<meta name="twitter:description" content="本文章来自MongoDB官方文档 ☞ 原文链接  概述  软件包 安装MongoDB社区版 运行MongoDB 卸载MongoDB   概述在本教程中,使用.deb包，在LTS Ubuntu系统中安装MongoDB社区版。 重要：由Ubuntu提供的非官方mongodb包不是由MongoDB维护的。 您应该始终使用官方的MongoDB mongodb-org软件包，它们与最新的主要和次要Mong">
   
   
     <link rel="icon" href="/images/favicon.ico">
@@ -27,27 +27,13 @@
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   <link rel="stylesheet" href="/css/style.css">
-<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-8674851637182043",
-          enable_page_level_ads: true
-     });
-</script> -->
-<!-- 首页 -->
-<!-- <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-8674851637182043"
-     data-ad-slot="9931201893"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script> -->
-
-<script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-8674851637182043",
+            enable_page_level_ads: true
+       });
+  </script>
 </head>
 
 <body>
@@ -108,13 +94,13 @@
   
 
       </header>
-      <amp-auto-ads type="adsense"
+      <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-      </amp-auto-ads>
+      </amp-auto-ads> -->
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#x35;&#x33;&#x30;&#x36;&#53;&#57;&#x30;&#51;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x32;&#x35;&#x33;&#x30;&#x36;&#53;&#57;&#x30;&#51;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"></p>
 <p>本文章来自MongoDB官方文档 ☞ <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition-on-ubuntu" target="_blank" rel="noopener">原文链接</a></p>
 <ul>
 <li><a href="#概述">概述</a> </li>
@@ -248,14 +234,15 @@
 <p><strong>3. 移除数据文件</strong></p>
 <p>移除MongoDB数据库和日志文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm -r /var/<span class="built_in">log</span>/mongodb</span><br><span class="line">$ sudo rm -r /var/lib/mongodb</span><br></pre></td></tr></table></figure>
+<p>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#x30;&#54;&#53;&#57;&#48;&#51;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#109;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#x30;&#54;&#53;&#57;&#48;&#51;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#109;</a></p>
 
       
     </div>
-    <amp-auto-ads type="adsense"
+    <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-    </amp-auto-ads>
+    </amp-auto-ads> -->
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/" data-title="在Ubuntu上安装社区版MongoDB" data-id="cjqa6lty000060wtzvudq6n7w" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/" data-title="在Ubuntu上安装社区版MongoDB" data-id="cjtl0vp050006b8tzakvo6lyt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li></ul>
@@ -361,9 +348,9 @@
   </div>
 
   
-  <amp-auto-ads type="adsense"
+  <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-  </amp-auto-ads>
+  </amp-auto-ads> -->
 </aside>
 
         
@@ -372,7 +359,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Owen Zhao<br>
+      &copy; 2019 Owen Zhao<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

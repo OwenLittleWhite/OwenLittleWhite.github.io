@@ -7,18 +7,18 @@
   
   <title>rabbitmq客户端自动重连 | Owen&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#x35;&amp;#51;&amp;#x30;&amp;#54;&amp;#53;&amp;#x39;&amp;#x30;&amp;#x33;&amp;#x40;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项">
+  <meta name="description" content="RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项  然后上GitHub上看有没有人提出类似的问题 github repo，通过输入reconnect搜索issue区找到题为 Support Auto-reconnection 的issue，发现这个问题是早在 2013 年就">
 <meta name="keywords" content="node.js,rabbitmq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rabbitmq客户端自动重连">
 <meta property="og:url" content="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/index.html">
 <meta property="og:site_name" content="Owen&#39;s Blogs">
-<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#x35;&amp;#51;&amp;#x30;&amp;#54;&amp;#53;&amp;#x39;&amp;#x30;&amp;#x33;&amp;#x40;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项">
+<meta property="og:description" content="RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项  然后上GitHub上看有没有人提出类似的问题 github repo，通过输入reconnect搜索issue区找到题为 Support Auto-reconnection 的issue，发现这个问题是早在 2013 年就">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-21T12:38:29.644Z">
+<meta property="og:updated_time" content="2019-03-23T04:57:13.512Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rabbitmq客户端自动重连">
-<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#x35;&amp;#51;&amp;#x30;&amp;#54;&amp;#53;&amp;#x39;&amp;#x30;&amp;#x33;&amp;#x40;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109; RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项">
+<meta name="twitter:description" content="RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连重启策略开始找解决方案：  通过查看AMQP的源码，发现没有reconnect的选项  然后上GitHub上看有没有人提出类似的问题 github repo，通过输入reconnect搜索issue区找到题为 Support Auto-reconnection 的issue，发现这个问题是早在 2013 年就">
   
   
     <link rel="icon" href="/images/favicon.ico">
@@ -27,27 +27,13 @@
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   <link rel="stylesheet" href="/css/style.css">
-<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-8674851637182043",
-          enable_page_level_ads: true
-     });
-</script> -->
-<!-- 首页 -->
-<!-- <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-8674851637182043"
-     data-ad-slot="9931201893"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script> -->
-
-<script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-8674851637182043",
+            enable_page_level_ads: true
+       });
+  </script>
 </head>
 
 <body>
@@ -108,13 +94,13 @@
   
 
       </header>
-      <amp-auto-ads type="adsense"
+      <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-      </amp-auto-ads>
+      </amp-auto-ads> -->
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#x35;&#51;&#x30;&#54;&#53;&#x39;&#x30;&#x33;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#50;&#x35;&#51;&#x30;&#54;&#53;&#x39;&#x30;&#x33;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"></p>
 <h2 id="RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连"><a href="#RabbitMQ-Node-js-客户端-AMQP-0-9-1-V0-5-2-自动重连" class="headerlink" title="RabbitMQ Node.js 客户端(AMQP 0-9-1  V0.5.2)自动重连"></a><code>RabbitMQ</code> Node.js 客户端(<a href="https://www.npmjs.com/package/amqplib" target="_blank" rel="noopener">AMQP 0-9-1  V0.5.2</a>)自动重连</h2><h3 id="重启策略"><a href="#重启策略" class="headerlink" title="重启策略"></a>重启策略</h3><p>开始找解决方案：</p>
 <ol>
 <li><p>通过查看AMQP的源码，发现没有reconnect的选项</p>
@@ -148,11 +134,11 @@
 
       
     </div>
-    <amp-auto-ads type="adsense"
+    <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-    </amp-auto-ads>
+    </amp-auto-ads> -->
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-title="rabbitmq客户端自动重连" data-id="cjqa6lu1l001c0wtzt42kv8wg" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/08/10/rabbitmq-reconnect/" data-title="rabbitmq客户端自动重连" data-id="cjtl0vp12000lb8tz2kvhk1u0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>
@@ -175,7 +161,7 @@
   
     <a href="/2018/07/20/Regex/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">正则表达式</div>
+      <div class="article-nav-title">正则表达式的基本使用</div>
     </a>
   
 </nav>
@@ -258,9 +244,9 @@
   </div>
 
   
-  <amp-auto-ads type="adsense"
+  <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-  </amp-auto-ads>
+  </amp-auto-ads> -->
 </aside>
 
         
@@ -269,7 +255,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Owen Zhao<br>
+      &copy; 2019 Owen Zhao<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

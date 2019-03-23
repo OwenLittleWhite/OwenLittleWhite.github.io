@@ -7,18 +7,18 @@
   
   <title>重置完阿里云要做的步骤(Ubuntu16.04) | Owen&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x39;&amp;#48;&amp;#51;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109;  增加新用户  安装nginx  安装NodeJS  安装MongoDB    增加新用户创建新用户1sudo adduser username 其中username是你要创">
+  <meta name="description" content="增加新用户  安装nginx  安装NodeJS  安装MongoDB    增加新用户创建新用户1sudo adduser username 其中username是你要创建的用户的名字，然后设置密码还有相关信息就可以了 赋予新用户sudo权限用adduser创建后的新用户是不能使用sudo的，因为还没有赋予相关root权限，执行以下代码赋予权限 12sudo usermod -a -G ad">
 <meta name="keywords" content="JavaScript, Node.js, Tool, Blog, MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重置完阿里云要做的步骤(Ubuntu16.04)">
 <meta property="og:url" content="https://owenlittlewhite.github.io/2018/09/19/config-cloud/index.html">
 <meta property="og:site_name" content="Owen&#39;s Blogs">
-<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x39;&amp;#48;&amp;#51;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109;  增加新用户  安装nginx  安装NodeJS  安装MongoDB    增加新用户创建新用户1sudo adduser username 其中username是你要创">
+<meta property="og:description" content="增加新用户  安装nginx  安装NodeJS  安装MongoDB    增加新用户创建新用户1sudo adduser username 其中username是你要创建的用户的名字，然后设置密码还有相关信息就可以了 赋予新用户sudo权限用adduser创建后的新用户是不能使用sudo的，因为还没有赋予相关root权限，执行以下代码赋予权限 12sudo usermod -a -G ad">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-24T12:03:06.496Z">
+<meta property="og:updated_time" content="2019-03-23T04:55:44.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重置完阿里云要做的步骤(Ubuntu16.04)">
-<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#x32;&amp;#x35;&amp;#51;&amp;#x30;&amp;#x36;&amp;#x35;&amp;#x39;&amp;#48;&amp;#51;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109;  增加新用户  安装nginx  安装NodeJS  安装MongoDB    增加新用户创建新用户1sudo adduser username 其中username是你要创">
+<meta name="twitter:description" content="增加新用户  安装nginx  安装NodeJS  安装MongoDB    增加新用户创建新用户1sudo adduser username 其中username是你要创建的用户的名字，然后设置密码还有相关信息就可以了 赋予新用户sudo权限用adduser创建后的新用户是不能使用sudo的，因为还没有赋予相关root权限，执行以下代码赋予权限 12sudo usermod -a -G ad">
   
   
     <link rel="icon" href="/images/favicon.ico">
@@ -27,27 +27,13 @@
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   <link rel="stylesheet" href="/css/style.css">
-<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-8674851637182043",
-          enable_page_level_ads: true
-     });
-</script> -->
-<!-- 首页 -->
-<!-- <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-8674851637182043"
-     data-ad-slot="9931201893"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script> -->
-
-<script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-8674851637182043",
+            enable_page_level_ads: true
+       });
+  </script>
 </head>
 
 <body>
@@ -108,13 +94,13 @@
   
 
       </header>
-      <amp-auto-ads type="adsense"
+      <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-      </amp-auto-ads>
+      </amp-auto-ads> -->
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#x35;&#51;&#x30;&#x36;&#x35;&#x39;&#48;&#51;&#64;&#x71;&#113;&#x2e;&#x63;&#111;&#109;" target="_blank" rel="noopener">&#x32;&#x35;&#51;&#x30;&#x36;&#x35;&#x39;&#48;&#51;&#64;&#x71;&#113;&#x2e;&#x63;&#111;&#109;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"></p>
 <ul>
 <li><p><a href="#增加新用户">增加新用户</a></p>
 </li>
@@ -143,15 +129,16 @@
 <h2 id="安装NodeJS"><a href="#安装NodeJS" class="headerlink" title="安装NodeJS"></a>安装NodeJS</h2><p><a href="https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions" target="_blank" rel="noopener">https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions</a></p>
 <p>执行命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
-<h2 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h2><p><a href="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/" target="_blank" rel="noopener">https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/</a></p>
+<h2 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h2><p><a href="https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/">https://owenlittlewhite.github.io/2018/08/30/mongodb-install-ubuntu/</a></p>
+<p>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#x32;&#53;&#x33;&#48;&#54;&#53;&#x39;&#48;&#x33;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x32;&#53;&#x33;&#48;&#54;&#53;&#x39;&#48;&#x33;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#x6d;</a></p>
 
       
     </div>
-    <amp-auto-ads type="adsense"
+    <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-    </amp-auto-ads>
+    </amp-auto-ads> -->
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/09/19/config-cloud/" data-title="重置完阿里云要做的步骤(Ubuntu16.04)" data-id="cjqa6lty400090wtzijl33zp8" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/09/19/config-cloud/" data-title="重置完阿里云要做的步骤(Ubuntu16.04)" data-id="cjtl0vp18000ob8tzc0cskj30" class="article-share-link">Share</a>
       
       
     </footer>
@@ -255,9 +242,9 @@
   </div>
 
   
-  <amp-auto-ads type="adsense"
+  <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-  </amp-auto-ads>
+  </amp-auto-ads> -->
 </aside>
 
         
@@ -266,7 +253,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Owen Zhao<br>
+      &copy; 2019 Owen Zhao<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

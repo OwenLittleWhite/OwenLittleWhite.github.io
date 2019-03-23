@@ -7,18 +7,18 @@
   
   <title>Node.js 事件循环、定时器和process.nextTick() | Owen&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#53;&amp;#x33;&amp;#x30;&amp;#54;&amp;#x35;&amp;#x39;&amp;#48;&amp;#x33;&amp;#x40;&amp;#113;&amp;#113;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109; 本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核">
+  <meta name="description" content="本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核都是多线程的，因此它们可以处理在后台执行的多个操作。 当其中一个操作完成时，内核会告诉Node.js，以便可以将相应的回调添加到 轮询队列 中以最终执行。 我们将在本主题后面进一步详细解释。 事件循环解释当Node.js启">
 <meta name="keywords" content="node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js 事件循环、定时器和process.nextTick()">
 <meta property="og:url" content="https://owenlittlewhite.github.io/2018/10/07/nodejs-event-loop/index.html">
 <meta property="og:site_name" content="Owen&#39;s Blogs">
-<meta property="og:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#53;&amp;#x33;&amp;#x30;&amp;#54;&amp;#x35;&amp;#x39;&amp;#48;&amp;#x33;&amp;#x40;&amp;#113;&amp;#113;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109; 本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核">
+<meta property="og:description" content="本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核都是多线程的，因此它们可以处理在后台执行的多个操作。 当其中一个操作完成时，内核会告诉Node.js，以便可以将相应的回调添加到 轮询队列 中以最终执行。 我们将在本主题后面进一步详细解释。 事件循环解释当Node.js启">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-15T14:04:52.591Z">
+<meta property="og:updated_time" content="2019-03-23T04:56:47.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js 事件循环、定时器和process.nextTick()">
-<meta name="twitter:description" content="编程rookie, 如有错误请指出 ☞：&amp;#50;&amp;#53;&amp;#x33;&amp;#x30;&amp;#54;&amp;#x35;&amp;#x39;&amp;#48;&amp;#x33;&amp;#x40;&amp;#113;&amp;#113;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109; 本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核">
+<meta name="twitter:description" content="本文为译文，英文原文 什么是事件循环尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。 由于现代大多数内核都是多线程的，因此它们可以处理在后台执行的多个操作。 当其中一个操作完成时，内核会告诉Node.js，以便可以将相应的回调添加到 轮询队列 中以最终执行。 我们将在本主题后面进一步详细解释。 事件循环解释当Node.js启">
   
   
     <link rel="icon" href="/images/favicon.ico">
@@ -27,27 +27,13 @@
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
   <link rel="stylesheet" href="/css/style.css">
-<!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-8674851637182043",
-          enable_page_level_ads: true
-     });
-</script> -->
-<!-- 首页 -->
-<!-- <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-8674851637182043"
-     data-ad-slot="9931201893"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script> -->
-
-<script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-8674851637182043",
+            enable_page_level_ads: true
+       });
+  </script>
 </head>
 
 <body>
@@ -112,13 +98,13 @@
   
 
       </header>
-      <amp-auto-ads type="adsense"
+      <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-      </amp-auto-ads>
+      </amp-auto-ads> -->
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"><br>编程rookie, 如有错误请指出 ☞：<i class="fas fa-envelope"></i><a href="mailto:&#50;&#53;&#x33;&#x30;&#54;&#x35;&#x39;&#48;&#x33;&#x40;&#113;&#113;&#46;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#50;&#53;&#x33;&#x30;&#54;&#x35;&#x39;&#48;&#x33;&#x40;&#113;&#113;&#46;&#x63;&#x6f;&#109;</a></p>
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"></p>
 <p>本文为译文，<a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener">英文原文</a></p>
 <h2 id="什么是事件循环"><a href="#什么是事件循环" class="headerlink" title="什么是事件循环"></a>什么是事件循环</h2><p>尽管JavaScript是单线程的，但通过尽可能将操作放到系统内核执行，事件循环允许Node.js执行非阻塞I/O操作。</p>
 <p>由于现代大多数内核都是多线程的，因此它们可以处理在后台执行的多个操作。 当其中一个操作完成时，内核会告诉Node.js，以便可以将相应的回调添加到 <strong>轮询队列</strong> 中以最终执行。 我们将在本主题后面进一步详细解释。</p>
@@ -215,11 +201,11 @@
 
       
     </div>
-    <amp-auto-ads type="adsense"
+    <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-    </amp-auto-ads>
+    </amp-auto-ads> -->
     <footer class="article-footer">
-      <a data-url="https://owenlittlewhite.github.io/2018/10/07/nodejs-event-loop/" data-title="Node.js 事件循环、定时器和process.nextTick()" data-id="cjqa6lty7000b0wtz6ksq9bym" class="article-share-link">Share</a>
+      <a data-url="https://owenlittlewhite.github.io/2018/10/07/nodejs-event-loop/" data-title="Node.js 事件循环、定时器和process.nextTick()" data-id="cjtl0vp0j000bb8tzbluqr1vu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
@@ -325,9 +311,9 @@
   </div>
 
   
-  <amp-auto-ads type="adsense"
+  <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-  </amp-auto-ads>
+  </amp-auto-ads> -->
 </aside>
 
         
@@ -336,7 +322,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Owen Zhao<br>
+      &copy; 2019 Owen Zhao<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

@@ -5,19 +5,20 @@
   
 
   
-  <title>Tag: MySQL | 欧小白的博客</title>
+  <title>mysql 更新时间自动更新，创建时间自动创建 | 欧小白的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Owen的博客网站">
-<meta name="keywords" content="JavaScript, Node.js, Tool, Blog, MySQL">
-<meta property="og:type" content="website">
-<meta property="og:title" content="欧小白的博客">
-<meta property="og:url" content="https://owenlittlewhite.github.io/tags/MySQL/index.html">
+  <meta name="description" content="在mysql中，当数据更新时，更新时间可以自动更新，创建新数据时，创建时间自动创建。实现起来很简单，只需要在建表语句中给相应的字段加上默认值。 例如，表中创建时间的字段名为add_time，更新时间的字段名为last_time 则给add_time附上默认值为CURRENT_TIMESTAMP; 给last_time附上默认值为CURRENT_TIMESTAMP ON UPDATE CURREN">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql 更新时间自动更新，创建时间自动创建">
+<meta property="og:url" content="https://owenlittlewhite.github.io/2019/04/02/mysql-updatetime/index.html">
 <meta property="og:site_name" content="欧小白的博客">
-<meta property="og:description" content="Owen的博客网站">
+<meta property="og:description" content="在mysql中，当数据更新时，更新时间可以自动更新，创建新数据时，创建时间自动创建。实现起来很简单，只需要在建表语句中给相应的字段加上默认值。 例如，表中创建时间的字段名为add_time，更新时间的字段名为last_time 则给add_time附上默认值为CURRENT_TIMESTAMP; 给last_time附上默认值为CURRENT_TIMESTAMP ON UPDATE CURREN">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-02T13:23:04.074Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="欧小白的博客">
-<meta name="twitter:description" content="Owen的博客网站">
+<meta name="twitter:title" content="mysql 更新时间自动更新，创建时间自动创建">
+<meta name="twitter:description" content="在mysql中，当数据更新时，更新时间可以自动更新，创建新数据时，创建时间自动创建。实现起来很简单，只需要在建表语句中给相应的字段加上默认值。 例如，表中创建时间的字段名为add_time，更新时间的字段名为last_time 则给add_time附上默认值为CURRENT_TIMESTAMP; 给last_time附上默认值为CURRENT_TIMESTAMP ON UPDATE CURREN">
   
   
     <link rel="icon" href="/images/favicon.ico">
@@ -74,95 +75,67 @@
 </header>
 
       <div class="outer">
-        <section id="main"><!-- <div><amp-auto-ads type="adsense"
+        <section id="main"><article id="post-mysql-updatetime" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/02/mysql-updatetime/" class="article-date">
+  <time datetime="2019-04-02T13:14:23.000Z" itemprop="datePublished">2019-04-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mysql 更新时间自动更新，创建时间自动创建
+    </h1>
+  
+
+      </header>
+      <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-</amp-auto-ads></div> -->
+      </amp-auto-ads> -->
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><head><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script><script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script></head><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"></p>
+<p>在mysql中，当数据更新时，更新时间可以自动更新，创建新数据时，创建时间自动创建。实现起来很简单，只需要在建表语句中给相应的字段加上默认值。</p>
+<p>例如，表中创建时间的字段名为<code>add_time</code>，更新时间的字段名为<code>last_time</code></p>
+<p>则给<code>add_time</code>附上默认值为<code>CURRENT_TIMESTAMP</code>;</p>
+<p>给<code>last_time</code>附上默认值为<code>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</code>;</p>
+<p>大功告成！就是这么简单，赶紧创建或者更新数据试一下吧！</p>
 
-  
-  
-    
-    
       
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/04/02/mysql-updatetime/" class="archive-article-date">
-  <time datetime="2019-04-02T13:14:23.000Z" itemprop="datePublished">Apr 2</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/02/mysql-updatetime/">mysql 更新时间自动更新，创建时间自动创建</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/08/22/mysql-select2/" class="archive-article-date">
-  <time datetime="2018-08-22T09:09:30.000Z" itemprop="datePublished">Aug 22</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/22/mysql-select2/">MySQL中取得股票最近几日行情举一反三</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/08/21/mysql-select/" class="archive-article-date">
-  <time datetime="2018-08-21T12:25:31.000Z" itemprop="datePublished">Aug 21</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/21/mysql-select/">MySQL中如何取得不同股票最近几日的日行情</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-<!-- <div><amp-auto-ads type="adsense"
+    </div>
+    <!-- <amp-auto-ads type="adsense"
               data-ad-client="ca-pub-8674851637182043">
-</amp-auto-ads></div> -->
+    </amp-auto-ads> -->
+    <footer class="article-footer">
+      <a data-url="https://owenlittlewhite.github.io/2019/04/02/mysql-updatetime/" data-title="mysql 更新时间自动更新，创建时间自动创建" data-id="cjtztcep7000i40tz5t658khr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/16/nodejs-interview/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Node.js 面试总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
 </section>
         
           <aside id="sidebar">
